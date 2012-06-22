@@ -1,4 +1,4 @@
-package PacMan;
+package RockContorter;
 
 
 import java.awt.*;
@@ -18,16 +18,16 @@ public class CommandLineGame {
 
                 String s = String.valueOf(line);
                 if (s.toLowerCase().equals("w")) {
-                    game.Move(Game.PacmanMove.UP);
+                    game.Move(Game.Move.MOVEUp);
                 }
                 else if (s.toLowerCase().equals("a")) {
-                    game.Move(Game.PacmanMove.LEFT);
+                    game.Move(Game.Move.MOVELeft);
                 }
                 else if (s.toLowerCase().equals("s")) {
-                    game.Move(Game.PacmanMove.DOWN);
+                    game.Move(Game.Move.MoveDown);
                 }
                 else if (s.toLowerCase().equals("d")) {
-                    game.Move(Game.PacmanMove.RIGHT);
+                    game.Move(Game.Move.MOVERight);
                 }
                 System.out.println(present(game));
             }
@@ -49,24 +49,15 @@ public class CommandLineGame {
 
         String[] boardString = new String[game.Board.BOARD_SIZE];
         for (int i = 0; i < game.Board.BOARD_SIZE; i++) {
-            boardString[i] = "               ";
+            boardString[i] = "                       ";
         }
         for (Map.Entry<Point, BoardState> position : game.Board.BoardGrid.entrySet()) {
             String character = "";
-            if(position.getKey().equals(game.PacManPosition)){
+            if(position.getKey().equals(game.PlayerPosition)){
                 character = "C";
-            } else if (position.getKey().equals(game.MonsterPositions.get(0))) {
-                character = "M";
-            } else if (position.getKey().equals(game.MonsterPositions.get(1)))   {
-                character = "M";
+
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
-            } else if (position.getValue() == BoardState.PILL) {
-                character = "*";
-            } else if (position.getValue() == BoardState.TELEPORT) {
-                character = "O";
-            } else if (position.getValue() == BoardState.POWERUP){
-                character = "!";
             } else {
                 character = " ";
             }

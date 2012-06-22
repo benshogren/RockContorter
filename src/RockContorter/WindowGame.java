@@ -1,4 +1,4 @@
-package PacMan;
+package RockContorter;
 
 
 import javax.swing.*;
@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.Console;
 
 public class WindowGame implements ActionListener, KeyListener {
 
@@ -112,13 +111,13 @@ public class WindowGame implements ActionListener, KeyListener {
     // and change the appropriate values in our GUI.
     public void actionPerformed(ActionEvent e) {
         if((e.getSource() == leftButton)){
-            game.Move(Game.PacmanMove.LEFT);
+            game.Move(Game.Move.MOVELeft);
         }else if(e.getSource() == rightButton){
-            game.Move(Game.PacmanMove.RIGHT);
+            game.Move(Game.Move.MOVERight);
         }else if(e.getSource() == upButton){
-            game.Move(Game.PacmanMove.UP);
+            game.Move(Game.Move.MOVEUp);
         } else if(e.getSource() == downButton) {
-            game.Move(Game.PacmanMove.DOWN);
+            game.Move(Game.Move.MoveDown);
         } else if (e.getSource() == clock ) {
             WindowGame.game.Update();
             updateUI();
@@ -141,7 +140,7 @@ public class WindowGame implements ActionListener, KeyListener {
         frame.setVisible(true);
         frame.addKeyListener(demo);
 
-        demo.clock = new Timer(1000, demo);
+        demo.clock = new Timer(100, demo);
         demo.clock.start();
     }
 
@@ -174,19 +173,19 @@ public class WindowGame implements ActionListener, KeyListener {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                game.Move(Game.PacmanMove.UP);
+                game.Move(Game.Move.MOVEUp);
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                game.Move(Game.PacmanMove.DOWN);
+                game.Move(Game.Move.MoveDown);
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                game.Move(Game.PacmanMove.RIGHT);
+                game.Move(Game.Move.MOVERight);
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                game.Move(Game.PacmanMove.LEFT);
+                game.Move(Game.Move.MOVELeft);
                 break;
         }
         updateUI();
