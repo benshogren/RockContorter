@@ -9,10 +9,15 @@ public class Game {
     public boolean Victory = false;
     public int moveCount = 0;
 
+
+    public boolean FaceRight = false;
+    public boolean FaceLeft = false;
+    public boolean FaceUp = false;
+    public boolean FaceDown = false;
+
     public Game(Board pBoard) {
         Board = pBoard;
         PlayerPosition = new Point(1, 1);
-
 
     }
 
@@ -22,13 +27,13 @@ public class Game {
         MOVEUp,
         MoveDown
     }
-
-    public enum Face {
-        FACELeft,
-        FACERight,
-        FACEUp,
-        FACEDown
-    }
+//
+//    public enum Direction {
+//        FACELeft,
+//        FACERight,
+//        FACEUp,
+//        FACEDown
+//    }
 
     public void Update() {
 
@@ -38,17 +43,40 @@ public class Game {
     public void Move (Move pMove) {
         Point newPosition = ConvertMoveToCoordinates(pMove);
         BoardState state = Board.GetState(newPosition);
-
         if (mGameOver) {
             return;
         }
 
+
+        if (newPosition.y < PlayerPosition.y) {
+            FaceRight = false;
+            FaceUp = true;
+        }
+
+        else if (newPosition.x < PlayerPosition.x){
+
+            FaceRight = false;
+            FaceLeft = true;
+        }
+        else if (newPosition.y > PlayerPosition.y){
+
+            FaceRight = false;
+            FaceDown = true;
+        }
+        else if (newPosition.x > PlayerPosition.x) {
+
+            FaceRight = true;
+        }
         if (state == BoardState.WALL) {
             // dont move him
         } else {
             PlayerPosition = newPosition;
         }
     }
+
+
+
+
 
     private Point ConvertMoveToCoordinates(Move pMove) {
         Point newPosition;
@@ -68,6 +96,8 @@ public class Game {
         }
         return newPosition;
     }
+
+
 
     public boolean GameOver() {
         return mGameOver;

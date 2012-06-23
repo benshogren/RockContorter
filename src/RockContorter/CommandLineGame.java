@@ -16,6 +16,7 @@ public class CommandLineGame {
                 int tmp = System.in.read();
                 char line = (char) tmp;
 
+
                 String s = String.valueOf(line);
                 if (s.toLowerCase().equals("w")) {
                     game.Move(Game.Move.MOVEUp);
@@ -46,16 +47,22 @@ public class CommandLineGame {
     }
 
     public static String ConvertBoardToString(Game game) {
-
         String[] boardString = new String[game.Board.BOARD_SIZE];
         for (int i = 0; i < game.Board.BOARD_SIZE; i++) {
             boardString[i] = "                       ";
         }
+
         for (Map.Entry<Point, BoardState> position : game.Board.BoardGrid.entrySet()) {
             String character = "";
-            if(position.getKey().equals(game.PlayerPosition)){
-                character = "C";
 
+            if((position.getKey().equals(game.PlayerPosition)) && (game.FaceLeft)){
+                character = "<";
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceUp)){
+                character = "^";
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceDown)){
+                character = "v";
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceRight)){
+                character = ">";
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
             } else {
