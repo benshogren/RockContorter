@@ -10,14 +10,14 @@ public class Game {
     public int moveCount = 0;
 
 
-    public boolean FaceRight = false;
-    public boolean FaceLeft = false;
-    public boolean FaceUp = false;
-    public boolean FaceDown = false;
+    public boolean FaceRight;
+    public boolean FaceLeft;
+    public boolean FaceUp;
+    public boolean FaceDown;
 
     public Game(Board pBoard) {
         Board = pBoard;
-        PlayerPosition = new Point(1, 1);
+        PlayerPosition = new Point(7, 5);
 
     }
 
@@ -49,23 +49,28 @@ public class Game {
 
 
         if (newPosition.y < PlayerPosition.y) {
-            FaceRight = false;
             FaceUp = true;
-        }
-
-        else if (newPosition.x < PlayerPosition.x){
-
             FaceRight = false;
+            FaceDown=false;
+            FaceLeft = false;
+        }
+        else if (newPosition.x < PlayerPosition.x){
+            FaceUp = false;
+            FaceRight = false;
+            FaceDown=false;
             FaceLeft = true;
         }
         else if (newPosition.y > PlayerPosition.y){
-
+            FaceUp = false;
             FaceRight = false;
-            FaceDown = true;
+            FaceDown=true;
+            FaceLeft = false;
         }
         else if (newPosition.x > PlayerPosition.x) {
-
+            FaceUp = false;
             FaceRight = true;
+            FaceDown=false;
+            FaceLeft = false;
         }
         if (state == BoardState.WALL) {
             // dont move him

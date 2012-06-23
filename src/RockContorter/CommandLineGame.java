@@ -63,6 +63,8 @@ public class CommandLineGame {
                 character = "v";
             } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceRight)){
                 character = ">";
+            } else if(position.getKey().equals(game.PlayerPosition)){
+                character = "^";
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
             } else {
