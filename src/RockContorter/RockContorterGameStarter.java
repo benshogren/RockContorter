@@ -5,7 +5,7 @@ public class RockContorterGameStarter {
     public static void main(String[] args) {
         WindowGame c =  new WindowGame();
 //        CommandLineGame c = new CommandLineGame();
-
+       //change
         c.play();
     }
 

@@ -5,6 +5,7 @@ import java.awt.*;
 public class Game {
     public Board Board;
     public Point PlayerPosition;
+
     public boolean mGameOver;
     public boolean Victory = false;
     public int moveCount = 0;
@@ -14,6 +15,8 @@ public class Game {
     public boolean FaceLeft;
     public boolean FaceUp;
     public boolean FaceDown;
+
+    public Point RockShield;
 
     public Game(Board pBoard) {
         Board = pBoard;
@@ -26,6 +29,12 @@ public class Game {
         MOVERight,
         MOVEUp,
         MoveDown
+    }
+
+    public enum Ability {
+
+        ROCKPlace
+
     }
 //
 //    public enum Direction {
@@ -40,6 +49,7 @@ public class Game {
 
     }
 
+
     public void Move (Move pMove) {
         Point newPosition = ConvertMoveToCoordinates(pMove);
         BoardState state = Board.GetState(newPosition);
@@ -53,6 +63,7 @@ public class Game {
             FaceRight = false;
             FaceDown=false;
             FaceLeft = false;
+
         }
         else if (newPosition.x < PlayerPosition.x){
             FaceUp = false;
@@ -80,7 +91,21 @@ public class Game {
     }
 
 
+    public void RockPlace(){
+        if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
+            RockShield = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+        }
 
+        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
+            RockShield = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        }
+        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
+            RockShield = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        }
+        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
+            RockShield = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        }
+    }
 
 
     private Point ConvertMoveToCoordinates(Move pMove) {

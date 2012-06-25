@@ -65,6 +65,8 @@ public class CommandLineGame {
                 character = ">";
             } else if(position.getKey().equals(game.PlayerPosition)){
                 character = "^";
+            } else if(position.getKey().equals(game.RockShield)){
+                character = "O";
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
             } else {

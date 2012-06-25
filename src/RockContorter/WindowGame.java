@@ -61,45 +61,45 @@ public class WindowGame implements ActionListener, KeyListener {
         totalGUI.add(scorePanel);
 
 
-
-        // Creation of a Panel to contain all the JButtons.
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(null);
-        buttonPanel.setLocation(0, 350);
-        buttonPanel.setSize(260, 160);
-        buttonPanel.addKeyListener(this);
-        totalGUI.add(buttonPanel);
-
-        // We create a button and manipulate it using the syntax we have
-        // used before. Now each button has an ActionListener which posts
-        // its action out when the button is pressed.
-        leftButton = new JButton("Left");
-        leftButton.setLocation(30,80);
-        leftButton.setSize(70, 70);
-        leftButton.addActionListener(this);
-        leftButton.addKeyListener(this);
-        buttonPanel.add(leftButton);
-
-        downButton = new JButton("Down");
-        downButton.setLocation(110, 80);
-        downButton.setSize(70, 70);
-        downButton.addActionListener(this);
-        downButton.addKeyListener(this);
-        buttonPanel.add(downButton);
-
-        rightButton = new JButton("Right");
-        rightButton.setLocation(190, 80);
-        rightButton.setSize(70, 70);
-        rightButton.addActionListener(this);
-        rightButton.addKeyListener(this);
-        buttonPanel.add(rightButton);
-
-        upButton = new JButton("Up");
-        upButton.setLocation(110, 0);
-        upButton.setSize(70, 70);
-        upButton.addActionListener(this);
-        upButton.addKeyListener(this);
-        buttonPanel.add(upButton);
+//
+//        // Creation of a Panel to contain all the JButtons.
+//        buttonPanel = new JPanel();
+//        buttonPanel.setLayout(null);
+//        buttonPanel.setLocation(0, 350);
+//        buttonPanel.setSize(260, 160);
+//        buttonPanel.addKeyListener(this);
+//        totalGUI.add(buttonPanel);
+//
+//        // We create a button and manipulate it using the syntax we have
+//        // used before. Now each button has an ActionListener which posts
+//        // its action out when the button is pressed.
+//        leftButton = new JButton("Left");
+//        leftButton.setLocation(30,80);
+//        leftButton.setSize(70, 70);
+//        leftButton.addActionListener(this);
+//        leftButton.addKeyListener(this);
+//        buttonPanel.add(leftButton);
+//
+//        downButton = new JButton("Down");
+//        downButton.setLocation(110, 80);
+//        downButton.setSize(70, 70);
+//        downButton.addActionListener(this);
+//        downButton.addKeyListener(this);
+//        buttonPanel.add(downButton);
+//
+//        rightButton = new JButton("Right");
+//        rightButton.setLocation(190, 80);
+//        rightButton.setSize(70, 70);
+//        rightButton.addActionListener(this);
+//        rightButton.addKeyListener(this);
+//        buttonPanel.add(rightButton);
+//
+//        upButton = new JButton("Up");
+//        upButton.setLocation(110, 0);
+//        upButton.setSize(70, 70);
+//        upButton.addActionListener(this);
+//        upButton.addKeyListener(this);
+//        buttonPanel.add(upButton);
 
         totalGUI.setOpaque(true);
         return totalGUI;
@@ -186,6 +186,9 @@ public class WindowGame implements ActionListener, KeyListener {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
                 game.Move(Game.Move.MOVELeft);
+                break;
+            case KeyEvent.VK_E:
+                game.RockPlace();
                 break;
         }
         updateUI();
