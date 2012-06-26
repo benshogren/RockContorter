@@ -5,7 +5,6 @@ import java.awt.*;
 public class Game {
     public Board Board;
     public Point PlayerPosition;
-
     public boolean mGameOver;
     public boolean Victory = false;
     public int moveCount = 0;
@@ -15,8 +14,16 @@ public class Game {
     public boolean FaceLeft;
     public boolean FaceUp;
     public boolean FaceDown;
-
     public Point RockShield;
+    public int updateCount = 0;
+
+    public Point tRockShield;
+    public Point newRockPosition;
+
+    public boolean RockThrown;
+
+
+
 
     public Game(Board pBoard) {
         Board = pBoard;
@@ -45,10 +52,20 @@ public class Game {
 //    }
 
     public void Update() {
+        updateCount = updateCount + 1;
+
+        if  (updateCount == 10) {
+            moveThrowRock();
+            updateCount = 0;
+        } else {
+            updateCount = updateCount + 1;
+        }
+
+
+
 
 
     }
-
 
     public void Move (Move pMove) {
         Point newPosition = ConvertMoveToCoordinates(pMove);
@@ -83,7 +100,9 @@ public class Game {
             FaceDown=false;
             FaceLeft = false;
         }
-        if (state == BoardState.WALL) {
+
+        if ((state == BoardState.WALL)||(state == BoardState.ROCK) || (newPosition == RockShield)) {
+
             // dont move him
         } else {
             PlayerPosition = newPosition;
@@ -91,21 +110,86 @@ public class Game {
     }
 
 
-    public void RockPlace(){
+    public Point RockPlace(){
+//        BoardState state = Board.GetState(newRockPosition);
+
+        //here make 1)newRockPosition, 2) if newRP BS is ROCK, make Empty, 3) if newRB BS is ROCK, RockShield disappears
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
-            RockShield = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
 
         if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
-            RockShield = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+            newRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
         }
         if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
-            RockShield = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+            newRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
         }
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
-            RockShield = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
+
+        RockShield = newRockPosition;
+        Board.RockShieldAsBoardState(RockShield);
+
+        return RockShield;
     }
+
+
+    public Point moveThrowRock (){
+        Board.BackToEmpty(RockShield);
+
+        if (FaceUp){
+            RockShield = new Point(RockShield.x, RockShield.y - 1);
+        } else if (FaceLeft){
+            RockShield = new Point(RockShield.x - 1, RockShield.y);
+        } else if (FaceRight) {
+            RockShield = new Point(RockShield.x + 1, RockShield.y);
+        } else {
+            RockShield = new Point(RockShield.x, RockShield.y + 1);
+        }
+
+        return RockShield;
+    }
+
+    //    public Point moveThrowRock (){
+//        Board.BackToEmpty(RockShield);
+//
+//        if (FaceUp){
+//            return FlyUp();
+//        } else if (FaceLeft){
+//            return FlyLeft();
+//        } else if (FaceRight) {
+//            return FlyRight();
+//        } else {
+//            return FlyDown();
+//        }
+//
+//    }
+
+
+//
+//    public Point FlyUp(){
+//        Point flyingUp = new Point(RockShield.x, RockShield.y - 1);
+//        RockShield = flyingUp;
+//        return RockShield;
+//    }
+//
+//    public Point FlyLeft(){
+//        Point flyingLeft = new Point(RockShield.x - 1, RockShield.y);
+//        RockShield = flyingLeft;
+//        return RockShield;
+//    }
+//    public Point FlyRight(){
+//        Point flyingRight = new Point(RockShield.x + 1, RockShield.y);
+//        RockShield = flyingRight;
+//        return RockShield;
+//    }
+//
+//    public Point FlyDown(){
+//        Point flyingDown = new Point(RockShield.x, RockShield.y + 1);
+//        RockShield = flyingDown;
+//        return RockShield;
+//    }
 
 
     private Point ConvertMoveToCoordinates(Move pMove) {

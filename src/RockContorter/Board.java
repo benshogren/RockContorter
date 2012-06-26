@@ -16,9 +16,9 @@ public class Board {
 
         convertToMap("88888888888888888");
         convertToMap("8               8");
-        convertToMap("8               8");
-        convertToMap("8               8");
-        convertToMap("8               8");
+        convertToMap("8         OO    8");
+        convertToMap("8           O   8");
+        convertToMap("8         OOO   8");
         convertToMap("8               8");
         convertToMap("8               8");
         convertToMap("8               8");
@@ -59,4 +59,10 @@ public class Board {
     }
 
 
+    public void RockShieldAsBoardState(Point RockShield) {
+        BoardGrid.put(RockShield, BoardState.ROCK);
+    }
+    public void BackToEmpty(Point RockShield) {
+        BoardGrid.put(RockShield, BoardState.EMPTY);
+    }
 }

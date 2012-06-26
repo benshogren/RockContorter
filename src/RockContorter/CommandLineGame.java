@@ -11,29 +11,29 @@ public class CommandLineGame {
         Board board = new Board();
         Game game = new Game(board);
         System.out.println(present(game));
-        while (!game.GameOver()) {
-            try {
-                int tmp = System.in.read();
-                char line = (char) tmp;
-
-
-                String s = String.valueOf(line);
-                if (s.toLowerCase().equals("w")) {
-                    game.Move(Game.Move.MOVEUp);
-                }
-                else if (s.toLowerCase().equals("a")) {
-                    game.Move(Game.Move.MOVELeft);
-                }
-                else if (s.toLowerCase().equals("s")) {
-                    game.Move(Game.Move.MoveDown);
-                }
-                else if (s.toLowerCase().equals("d")) {
-                    game.Move(Game.Move.MOVERight);
-                }
-                System.out.println(present(game));
-            }
-            catch (IOException e) {}
-        }
+//        while (!game.GameOver()) {
+//            try {
+//                int tmp = System.in.read();
+//                char line = (char) tmp;
+//
+//
+//                String s = String.valueOf(line);
+//                if (s.toLowerCase().equals("w")) {
+//                    game.Move(Game.Move.MOVEUp);
+//                }
+//                else if (s.toLowerCase().equals("a")) {
+//                    game.Move(Game.Move.MOVELeft);
+//                }
+//                else if (s.toLowerCase().equals("s")) {
+//                    game.Move(Game.Move.MoveDown);
+//                }
+//                else if (s.toLowerCase().equals("d")) {
+//                    game.Move(Game.Move.MOVERight);
+//                }
+//                System.out.println(present(game));
+//            }
+//            catch (IOException e) {}
+//        }
     }
     public static String present(Game game) {
         String boardText = ConvertBoardToString(game);
@@ -67,8 +67,12 @@ public class CommandLineGame {
                 character = "^";
             } else if(position.getKey().equals(game.RockShield)){
                 character = "O";
+            } else if(position.getKey().equals(game.tRockShield)){
+                character = "O";
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
+            } else if (position.getValue() == BoardState.ROCK) {
+                character = "O";
             } else {
                 character = " ";
             }

@@ -10,9 +10,6 @@ import java.awt.event.KeyListener;
 
 public class WindowGame implements ActionListener, KeyListener {
 
-    // Definition of global values and items that are part of the GUI.
-    int redScoreAmount = 0;
-    int blueScoreAmount = 0;
 
     JPanel titlePanel, scorePanel, buttonPanel;
     JTextArea gameTextAre;
@@ -27,12 +24,10 @@ public class WindowGame implements ActionListener, KeyListener {
 
     public JPanel createContentPane (){
 
-        // We create a bottom JPanel to place everything on.
         JPanel totalGUI = new JPanel();
         totalGUI.setLayout(null);
         totalGUI.addKeyListener(this);
 
-        // Creation of a Panel to contain the title labels
         titlePanel = new JPanel();
         titlePanel.setLayout(null);
         titlePanel.setLocation(10, 0);
@@ -47,12 +42,10 @@ public class WindowGame implements ActionListener, KeyListener {
         gameTextAre.setSize(500, 500);
         gameTextAre.setFont(new Font("Monospaced", Font.PLAIN, 12));
         gameTextAre.setForeground(Color.black);
-//        gameTextAre.setEnabled(false);
         gameTextAre.addKeyListener(this);
         titlePanel.add(gameTextAre);
 
 
-        // Creation of a Panel to contain the score labels.
         scorePanel = new JPanel();
         scorePanel.setLayout(null);
         scorePanel.setLocation(10, 40);
@@ -61,54 +54,47 @@ public class WindowGame implements ActionListener, KeyListener {
         totalGUI.add(scorePanel);
 
 
-//
-//        // Creation of a Panel to contain all the JButtons.
-//        buttonPanel = new JPanel();
-//        buttonPanel.setLayout(null);
-//        buttonPanel.setLocation(0, 350);
-//        buttonPanel.setSize(260, 160);
-//        buttonPanel.addKeyListener(this);
-//        totalGUI.add(buttonPanel);
-//
-//        // We create a button and manipulate it using the syntax we have
-//        // used before. Now each button has an ActionListener which posts
-//        // its action out when the button is pressed.
-//        leftButton = new JButton("Left");
-//        leftButton.setLocation(30,80);
-//        leftButton.setSize(70, 70);
-//        leftButton.addActionListener(this);
-//        leftButton.addKeyListener(this);
-//        buttonPanel.add(leftButton);
-//
-//        downButton = new JButton("Down");
-//        downButton.setLocation(110, 80);
-//        downButton.setSize(70, 70);
-//        downButton.addActionListener(this);
-//        downButton.addKeyListener(this);
-//        buttonPanel.add(downButton);
-//
-//        rightButton = new JButton("Right");
-//        rightButton.setLocation(190, 80);
-//        rightButton.setSize(70, 70);
-//        rightButton.addActionListener(this);
-//        rightButton.addKeyListener(this);
-//        buttonPanel.add(rightButton);
-//
-//        upButton = new JButton("Up");
-//        upButton.setLocation(110, 0);
-//        upButton.setSize(70, 70);
-//        upButton.addActionListener(this);
-//        upButton.addKeyListener(this);
-//        buttonPanel.add(upButton);
+
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(null);
+        buttonPanel.setLocation(0, 350);
+        buttonPanel.setSize(260, 160);
+        buttonPanel.addKeyListener(this);
+        totalGUI.add(buttonPanel);
+
+
+        leftButton = new JButton("Left");
+        leftButton.setLocation(30,80);
+        leftButton.setSize(70, 70);
+        leftButton.addActionListener(this);
+        leftButton.addKeyListener(this);
+        buttonPanel.add(leftButton);
+
+        downButton = new JButton("Down");
+        downButton.setLocation(110, 80);
+        downButton.setSize(70, 70);
+        downButton.addActionListener(this);
+        downButton.addKeyListener(this);
+        buttonPanel.add(downButton);
+
+        rightButton = new JButton("Right");
+        rightButton.setLocation(190, 80);
+        rightButton.setSize(70, 70);
+        rightButton.addActionListener(this);
+        rightButton.addKeyListener(this);
+        buttonPanel.add(rightButton);
+
+        upButton = new JButton("Up");
+        upButton.setLocation(110, 0);
+        upButton.setSize(70, 70);
+        upButton.addActionListener(this);
+        upButton.addKeyListener(this);
+        buttonPanel.add(upButton);
 
         totalGUI.setOpaque(true);
         return totalGUI;
     }
 
-    // This is the new ActionPerformed Method.
-    // It catches any events with an ActionListener attached.
-    // Using an if statement, we can determine which button was pressed
-    // and change the appropriate values in our GUI.
     public void actionPerformed(ActionEvent e) {
         if((e.getSource() == leftButton)){
             game.Move(Game.Move.MOVELeft);
@@ -131,7 +117,6 @@ public class WindowGame implements ActionListener, KeyListener {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("[=] JButton Scores! [=]");
 
-        //Create and set up the content pane.
         WindowGame demo = new WindowGame();
         frame.setContentPane(demo.createContentPane());
 
@@ -140,7 +125,7 @@ public class WindowGame implements ActionListener, KeyListener {
         frame.setVisible(true);
         frame.addKeyListener(demo);
 
-        demo.clock = new Timer(100, demo);
+        demo.clock = new Timer(1000, demo);
         demo.clock.start();
     }
 
@@ -150,8 +135,6 @@ public class WindowGame implements ActionListener, KeyListener {
     }
 
     public void play(){
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
@@ -190,7 +173,18 @@ public class WindowGame implements ActionListener, KeyListener {
             case KeyEvent.VK_E:
                 game.RockPlace();
                 break;
+            case KeyEvent.VK_R:
+
+//                game.RockThrown = true
+                     game.moveThrowRock();
+
+                break;
+
         }
         updateUI();
     }
 }
+
+
+
+
