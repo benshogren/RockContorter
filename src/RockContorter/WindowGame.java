@@ -125,7 +125,7 @@ public class WindowGame implements ActionListener, KeyListener {
         frame.setVisible(true);
         frame.addKeyListener(demo);
 
-        demo.clock = new Timer(1000, demo);
+        demo.clock = new Timer(100, demo);
         demo.clock.start();
     }
 
@@ -174,9 +174,7 @@ public class WindowGame implements ActionListener, KeyListener {
                 game.RockPlace();
                 break;
             case KeyEvent.VK_R:
-
-                     game.moveThrowRock();
-
+                     game.aBoolean = true;
                 break;
 
 
