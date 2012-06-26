@@ -20,8 +20,6 @@ public class Game {
     public Point tRockShield;
     public Point newRockPosition;
 
-    public boolean RockThrown;
-
 
 
 
@@ -38,18 +36,7 @@ public class Game {
         MoveDown
     }
 
-    public enum Ability {
 
-        ROCKPlace
-
-    }
-//
-//    public enum Direction {
-//        FACELeft,
-//        FACERight,
-//        FACEUp,
-//        FACEDown
-//    }
 
     public void Update() {
         updateCount = updateCount + 1;
@@ -113,6 +100,8 @@ public class Game {
 //        BoardState state = Board.GetState(newRockPosition);
 
         //here make 1)newRockPosition, 2) if newRP BS is ROCK, make Empty, 3) if newRB BS is ROCK, RockShield disappears
+
+        ThrowCounter = 0;
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
@@ -138,8 +127,6 @@ public class Game {
         ThrowCounter = ThrowCounter + 1;
         if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
             Board.BackToEmpty(RockShield);
-        } else {
-            ThrowCounter = ThrowCounter + 1;
         }
 
         if (FaceUp){

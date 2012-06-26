@@ -175,10 +175,11 @@ public class WindowGame implements ActionListener, KeyListener {
                 break;
             case KeyEvent.VK_R:
 
-//                game.RockThrown = true
                      game.moveThrowRock();
 
                 break;
+
+
 
         }
         updateUI();
