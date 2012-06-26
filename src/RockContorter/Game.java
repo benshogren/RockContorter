@@ -16,7 +16,7 @@ public class Game {
     public boolean FaceDown;
     public Point RockShield;
     public int updateCount = 0;
-
+    public int ThrowCounter = 0;
     public Point tRockShield;
     public Point newRockPosition;
 
@@ -101,8 +101,7 @@ public class Game {
             FaceLeft = false;
         }
 
-        if ((state == BoardState.WALL)||(state == BoardState.ROCK) || (newPosition == RockShield)) {
-
+        if ((state == BoardState.WALL)||(state == BoardState.ROCK) || (newPosition == newRockPosition)) {
             // dont move him
         } else {
             PlayerPosition = newPosition;
@@ -127,7 +126,6 @@ public class Game {
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
             newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
-
         RockShield = newRockPosition;
         Board.RockShieldAsBoardState(RockShield);
 
@@ -136,7 +134,13 @@ public class Game {
 
 
     public Point moveThrowRock (){
-        Board.BackToEmpty(RockShield);
+        BoardState state = Board.GetState(RockShield);
+        ThrowCounter = ThrowCounter + 1;
+        if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
+            Board.BackToEmpty(RockShield);
+        } else {
+            ThrowCounter = ThrowCounter + 1;
+        }
 
         if (FaceUp){
             RockShield = new Point(RockShield.x, RockShield.y - 1);
@@ -166,8 +170,6 @@ public class Game {
 //
 //    }
 
-
-//
 //    public Point FlyUp(){
 //        Point flyingUp = new Point(RockShield.x, RockShield.y - 1);
 //        RockShield = flyingUp;
