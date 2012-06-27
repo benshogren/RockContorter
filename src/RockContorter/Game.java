@@ -4,29 +4,29 @@ import java.awt.*;
 
 public class Game {
     public Board Board;
-    public Point PlayerPosition;
     public boolean mGameOver;
     public boolean Victory = false;
-    public int moveCount = 0;
-
+    public boolean ThrewRock = false;
 
     public boolean FaceRight;
     public boolean FaceLeft;
     public boolean FaceUp;
     public boolean FaceDown;
-    public Point RockShield;
+
+    public int moveCount = 0;
     public int updateCount = 0;
     public int ThrowCounter = 0;
-    public Point tRockShield;
-    public Point newRockPosition;
 
-
+    public Point PlayerPosition;
+    public Point RockShield;
+    public Point ThrowRock;
+    public Point newRockShieldPosition;
+    public Point newThrowRockPosition;
 
 
     public Game(Board pBoard) {
         Board = pBoard;
         PlayerPosition = new Point(7, 5);
-
     }
 
     public enum Move {
@@ -36,22 +36,13 @@ public class Game {
         MoveDown
     }
 
-
-
     public void Update() {
-        updateCount = updateCount + 1;
-
-        if  (updateCount == 10) {
+        if  ((updateCount == 2)) {
             moveThrowRock();
             updateCount = 0;
         } else {
             updateCount = updateCount + 1;
         }
-
-
-
-
-
     }
 
     public void Move (Move pMove) {
@@ -60,35 +51,28 @@ public class Game {
         if (mGameOver) {
             return;
         }
-
-
         if (newPosition.y < PlayerPosition.y) {
             FaceUp = true;
             FaceRight = false;
-            FaceDown=false;
+            FaceDown = false;
             FaceLeft = false;
-
-        }
-        else if (newPosition.x < PlayerPosition.x){
+        } else if (newPosition.x < PlayerPosition.x){
             FaceUp = false;
             FaceRight = false;
-            FaceDown=false;
+            FaceDown = false;
             FaceLeft = true;
-        }
-        else if (newPosition.y > PlayerPosition.y){
+        } else if (newPosition.y > PlayerPosition.y){
             FaceUp = false;
             FaceRight = false;
-            FaceDown=true;
+            FaceDown = true;
             FaceLeft = false;
-        }
-        else if (newPosition.x > PlayerPosition.x) {
+        } else if (newPosition.x > PlayerPosition.x) {
             FaceUp = false;
             FaceRight = true;
-            FaceDown=false;
+            FaceDown = false;
             FaceLeft = false;
         }
-
-        if ((state == BoardState.WALL)||(state == BoardState.ROCK) || (newPosition == newRockPosition)) {
+        if ((state == BoardState.WALL)||(state == BoardState.ROCK) || (newPosition == newRockShieldPosition)) {
             // dont move him
         } else {
             PlayerPosition = newPosition;
@@ -97,88 +81,69 @@ public class Game {
 
 
     public Point RockPlace(){
-//        BoardState state = Board.GetState(newRockPosition);
+//        BoardState state = Board.GetState(newRockShieldPosition);
 
-        //here make 1)newRockPosition, 2) if newRP BS is ROCK, make Empty, 3) if newRB BS is ROCK, RockShield disappears
+        ThrewRock = false;
 
         ThrowCounter = 0;
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
-            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+            newRockShieldPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
-
         if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
-            newRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+            newRockShieldPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
         }
         if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
-            newRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+            newRockShieldPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
         }
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
-            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+            newRockShieldPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
-        RockShield = newRockPosition;
+
+        RockShield = newRockShieldPosition;
+
         Board.RockShieldAsBoardState(RockShield);
 
         return RockShield;
     }
 
-
+    public boolean WallInTheWay(Point newTRockPosition) {
+        return (Board.GetState(newTRockPosition) == BoardState.WALL);
+    }
     public Point moveThrowRock (){
+
+
         BoardState state = Board.GetState(RockShield);
+        if (state == BoardState.WALL){
+            return RockShield;
+        }
+        if (RockShield == null){
+            return new Point(1,1);
+        }
+        if (!ThrewRock) {
+            return new Point(1,2);
+        }
         ThrowCounter = ThrowCounter + 1;
         if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
             Board.BackToEmpty(RockShield);
         }
-
         if (FaceUp){
-            RockShield = new Point(RockShield.x, RockShield.y - 1);
+            newThrowRockPosition = new Point(RockShield.x, RockShield.y - 1);
         } else if (FaceLeft){
-            RockShield = new Point(RockShield.x - 1, RockShield.y);
+            newThrowRockPosition = new Point(RockShield.x - 1, RockShield.y);
         } else if (FaceRight) {
-            RockShield = new Point(RockShield.x + 1, RockShield.y);
+            newThrowRockPosition = new Point(RockShield.x + 1, RockShield.y);
         } else {
-            RockShield = new Point(RockShield.x, RockShield.y + 1);
+            newThrowRockPosition = new Point(RockShield.x, RockShield.y + 1);
         }
-
+        if (!WallInTheWay(newThrowRockPosition)) {
+            RockShield = newThrowRockPosition;
+        } else {
+            ThrewRock = false;
+        }
         return RockShield;
+
     }
 
-    //    public Point moveThrowRock (){
-//        Board.BackToEmpty(RockShield);
-//
-//        if (FaceUp){
-//            return FlyUp();
-//        } else if (FaceLeft){
-//            return FlyLeft();
-//        } else if (FaceRight) {
-//            return FlyRight();
-//        } else {
-//            return FlyDown();
-//        }
-//
-//    }
-
-//    public Point FlyUp(){
-//        Point flyingUp = new Point(RockShield.x, RockShield.y - 1);
-//        RockShield = flyingUp;
-//        return RockShield;
-//    }
-//
-//    public Point FlyLeft(){
-//        Point flyingLeft = new Point(RockShield.x - 1, RockShield.y);
-//        RockShield = flyingLeft;
-//        return RockShield;
-//    }
-//    public Point FlyRight(){
-//        Point flyingRight = new Point(RockShield.x + 1, RockShield.y);
-//        RockShield = flyingRight;
-//        return RockShield;
-//    }
-//
-//    public Point FlyDown(){
-//        Point flyingDown = new Point(RockShield.x, RockShield.y + 1);
-//        RockShield = flyingDown;
-//        return RockShield;
-//    }
 
 
     private Point ConvertMoveToCoordinates(Move pMove) {
@@ -199,8 +164,6 @@ public class Game {
         }
         return newPosition;
     }
-
-
 
     public boolean GameOver() {
         return mGameOver;
