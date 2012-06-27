@@ -65,10 +65,10 @@ public class CommandLineGame {
                 character = ">";
             } else if(position.getKey().equals(game.PlayerPosition)){
                 character = "^";
-            } else if(position.getKey().equals(game.RockShield)){
+            } else if(position.getKey().equals(game.RockShield) && !game.ThrewShield){
                 character = "O";
-//            } else if(position.getKey().equals(game.ThrownRock)){
-//                character = "O";
+            } else if(position.getKey().equals(game.ThrowRock)){
+                character = "O";
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
             } else if (position.getValue() == BoardState.ROCK) {
