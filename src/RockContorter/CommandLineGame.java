@@ -67,8 +67,8 @@ public class CommandLineGame {
                 character = "^";
             } else if(position.getKey().equals(game.RockShield)){
                 character = "O";
-            } else if(position.getKey().equals(game.tRockShield)){
-                character = "O";
+//            } else if(position.getKey().equals(game.ThrownRock)){
+//                character = "O";
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
             } else if (position.getValue() == BoardState.ROCK) {
