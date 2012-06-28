@@ -26,9 +26,24 @@ public class Game {
     public Point newThrowRockPosition;
     public Point TunnelPosition;
 
+//    public java.util.List<Point> ChopWall;
+
+    public Point ChopWallSection1;
+    public Point ChopWallSection2;
+    public Point ChopWallSection3;
+
+
     public Game(Board pBoard) {
         Board = pBoard;
         PlayerPosition = new Point(7, 5);
+
+//        ChopWall = new ArrayList<Point>();
+//        ChopWall.add(new Point());
+//        ChopWall.add(new Point());
+//        ChopWall.add(new Point());
+
+
+
     }
 
     public enum Move {
@@ -95,7 +110,7 @@ public class Game {
             newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
         RockShield = newRockPosition;
-        Board.RockShieldAsBoardState(RockShield);
+        Board.RockAsBoardState(RockShield);
         return RockShield;
     }
 
@@ -154,6 +169,36 @@ public class Game {
         }
         return ThrowRock;
     }
+
+
+
+    public void ChopWall(){
+        if (FaceUp){
+            ChopWallSection1 = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+            ChopWallSection2 = new Point(PlayerPosition.x, PlayerPosition.y - 2);
+            ChopWallSection3 = new Point(PlayerPosition.x, PlayerPosition.y - 3);
+        } else if (FaceLeft){
+            ChopWallSection1 = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+            ChopWallSection2 = new Point(PlayerPosition.x - 2, PlayerPosition.y);
+            ChopWallSection3 = new Point(PlayerPosition.x - 3, PlayerPosition.y);
+        } else if (FaceRight){
+            ChopWallSection1 = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+            ChopWallSection2 = new Point(PlayerPosition.x + 2, PlayerPosition.y);
+            ChopWallSection3 = new Point(PlayerPosition.x + 3, PlayerPosition.y);
+        } else {
+            ChopWallSection1 = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+            ChopWallSection2 = new Point(PlayerPosition.x, PlayerPosition.y + 2);
+            ChopWallSection3 = new Point(PlayerPosition.x, PlayerPosition.y + 3);
+        }
+        Board.RockAsBoardState(ChopWallSection1);
+        Board.RockAsBoardState(ChopWallSection2);
+        Board.RockAsBoardState(ChopWallSection3);
+
+        //later make so it hurts enemies when hits, but not forever: null the points in update
+    }
+
+
+
 
     public void RockTunnel(Point TunnelPosition){
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){

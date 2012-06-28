@@ -184,7 +184,9 @@ public class WindowGame implements ActionListener, KeyListener {
             case KeyEvent.VK_C:
                 game.RockTunnel(game.TunnelPosition);
                 break;
-
+            case KeyEvent.VK_G:
+                game.ChopWall();
+                break;
         }
         updateUI();
     }

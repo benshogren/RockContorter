@@ -64,9 +64,10 @@ public class Board {
         return BoardGrid.get(pNewPosition);
     }
 
-    public void RockShieldAsBoardState(Point RockShield) {
+    public void RockAsBoardState(Point RockShield) {
         BoardGrid.put(RockShield, BoardState.ROCK);
     }
+
     public void BackToEmpty(Point RockShield) {
         BoardGrid.put(RockShield, BoardState.EMPTY);
     }
