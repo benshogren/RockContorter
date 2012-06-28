@@ -31,7 +31,7 @@ public class WindowGame implements ActionListener, KeyListener {
         titlePanel = new JPanel();
         titlePanel.setLayout(null);
         titlePanel.setLocation(10, 0);
-        titlePanel.setSize(300, 300);
+        titlePanel.setSize(350, 350);
         titlePanel.addKeyListener(this);
         totalGUI.add(titlePanel);
 
@@ -39,8 +39,8 @@ public class WindowGame implements ActionListener, KeyListener {
         gameTextAre = new JTextArea();
         gameTextAre.setText(CommandLineGame.present(game));
         gameTextAre.setLocation(0, 0);
-        gameTextAre.setSize(500, 500);
-        gameTextAre.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        gameTextAre.setSize(700, 700);
+        gameTextAre.setFont(new Font("Monospaced", Font.PLAIN, 14));
         gameTextAre.setForeground(Color.black);
         gameTextAre.addKeyListener(this);
         titlePanel.add(gameTextAre);

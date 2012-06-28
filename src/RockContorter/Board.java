@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Board {
     public HashMap<Point, BoardState> BoardGrid;
-    public int BOARD_SIZE = 20;
+    public int BOARD_SIZE = 30;
 
 
 
@@ -14,16 +14,22 @@ public class Board {
     public Board() {
         BoardGrid = new HashMap<Point, BoardState>();
 
-        convertToMap("88888888888888888");
-        convertToMap("8               8");
-        convertToMap("8         OO    8");
-        convertToMap("8           O   8");
-        convertToMap("8         OOO   8");
-        convertToMap("8               8");
-        convertToMap("8               8");
-        convertToMap("8               8");
-        convertToMap("8               8");
-        convertToMap("88888888888888888");
+        convertToMap("88888888888888888888888888888");
+        convertToMap("8                           8");
+        convertToMap("8                     OO    8");
+        convertToMap("8                     OOO   8");
+        convertToMap("8                    OOOO   8");
+        convertToMap("8                    OO     8");
+        convertToMap("8                           8");
+        convertToMap("8                      O    8");
+        convertToMap("8                     OO    8");
+        convertToMap("8                           8");
+        convertToMap("8                           8");
+        convertToMap("8                           8");
+        convertToMap("8                           8");
+        convertToMap("8                           8");
+        convertToMap("8                           8");
+        convertToMap("88888888888888888888888888888");
     }
 
 

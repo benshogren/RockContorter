@@ -102,6 +102,7 @@ public class Game {
     public boolean WallInTheWay(Point position) {
         return (Board.GetState(position) == BoardState.WALL);
     }
+
     public boolean RockInTheWay(Point position) {
         return (Board.GetState(position) == BoardState.ROCK);
     }
@@ -148,7 +149,7 @@ public class Game {
         } else {
             ThrowRock = null;
             ThrewRock = false;
-            RockShield = null;
+//            RockShield = null;
         }
         return ThrowRock;
     }
