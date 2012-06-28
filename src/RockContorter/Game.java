@@ -166,7 +166,9 @@ public class Game {
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
             TunnelPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
+        if (RockInTheWay(TunnelPosition)){
         Board.BoardGrid.put(TunnelPosition, BoardState.EMPTY);
+        }
     }
 
     public Point Leap(){
