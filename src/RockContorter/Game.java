@@ -20,13 +20,11 @@ public class Game {
 
     public Point PlayerPosition;
     public Point LeapPosition;
-    public Point LeapPosition2nd;
-    public Point LeapPosition3rd;
     public Point RockShield;
     public Point ThrowRock;
     public Point newRockPosition;
     public Point newThrowRockPosition;
-
+    public Point TunnelPosition;
 
     public Game(Board pBoard) {
         Board = pBoard;
@@ -84,7 +82,6 @@ public class Game {
     }
 
     public Point RockPlace(){
-
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
@@ -108,6 +105,7 @@ public class Game {
     public boolean RockInTheWay(Point position) {
         return (Board.GetState(position) == BoardState.ROCK);
     }
+
     public void RockThrowPositionRock(){
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
@@ -122,6 +120,7 @@ public class Game {
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
     }
+
     public Point MoveThrowRock(){
         BoardState state = Board.GetState(RockShield);
         if (RockShield == null){
@@ -154,6 +153,21 @@ public class Game {
         return ThrowRock;
     }
 
+    public void RockTunnel(Point TunnelPosition){
+        if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
+            TunnelPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+        }
+        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
+            TunnelPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        }
+        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
+            TunnelPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        }
+        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
+            TunnelPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        }
+        Board.BoardGrid.put(TunnelPosition, BoardState.EMPTY);
+    }
 
     public Point Leap(){
         if (FaceUp){
