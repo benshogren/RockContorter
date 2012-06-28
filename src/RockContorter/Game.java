@@ -107,7 +107,7 @@ public class Game {
         return (Board.GetState(position) == BoardState.ROCK);
     }
 
-    public void RockThrowPositionRock(){
+    public Point RockThrowPositionRock(){
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
@@ -120,13 +120,14 @@ public class Game {
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
+        return newThrowRockPosition;
     }
 
     public Point MoveThrowRock(){
-        BoardState state = Board.GetState(RockShield);
-        if (RockShield == null){
-            return new Point(1,1);
-        }
+        BoardState state = Board.GetState(newThrowRockPosition);
+//        if (RockShield == null){
+//            return new Point(1,1);
+//        }
         if (!ThrewRock) {
             return new Point(1,2);
         }
