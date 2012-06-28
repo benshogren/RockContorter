@@ -19,6 +19,9 @@ public class Game {
     public int ThrowCounter = 0;
 
     public Point PlayerPosition;
+    public Point LeapPosition;
+    public Point LeapPosition2nd;
+    public Point LeapPosition3rd;
     public Point RockShield;
     public Point ThrowRock;
     public Point newRockPosition;
@@ -99,8 +102,11 @@ public class Game {
         return RockShield;
     }
 
-    public boolean WallInTheWay(Point newTRockPosition) {
-        return (Board.GetState(newTRockPosition) == BoardState.WALL);
+    public boolean WallInTheWay(Point position) {
+        return (Board.GetState(position) == BoardState.WALL);
+    }
+    public boolean RockInTheWay(Point position) {
+        return (Board.GetState(position) == BoardState.ROCK);
     }
     public void RockThrowPositionRock(){
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
@@ -138,7 +144,7 @@ public class Game {
         } else {
             newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y + 1);
         }
-        if (!WallInTheWay(newThrowRockPosition)) {
+        if (!WallInTheWay(newThrowRockPosition) && !RockInTheWay(newThrowRockPosition)) {
             ThrowRock = newThrowRockPosition;
         } else {
             ThrowRock = null;
@@ -146,6 +152,81 @@ public class Game {
             RockShield = null;
         }
         return ThrowRock;
+    }
+
+
+    public Point Leap(){
+        if (FaceUp){
+            LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y - 3);
+            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                PlayerPosition = LeapPosition;
+                return PlayerPosition;
+            } else
+                LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y - 2);
+                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    PlayerPosition = LeapPosition;
+                    return PlayerPosition;
+                } else
+                    LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                        PlayerPosition = LeapPosition;
+                        return PlayerPosition;
+                    } else
+                        return new Point(1,1);
+
+        } else if (FaceLeft){
+            LeapPosition = new Point(PlayerPosition.x - 3, PlayerPosition.y);
+            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                PlayerPosition = LeapPosition;
+                return PlayerPosition;
+            } else
+                LeapPosition = new Point(PlayerPosition.x - 2, PlayerPosition.y);
+                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    PlayerPosition = LeapPosition;
+                    return PlayerPosition;
+                } else
+                    LeapPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                        PlayerPosition = LeapPosition;
+                        return PlayerPosition;
+                    } else
+                        return new Point(1,1);
+
+        } else if (FaceRight){
+            LeapPosition = new Point(PlayerPosition.x + 3, PlayerPosition.y);
+            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                PlayerPosition = LeapPosition;
+                return PlayerPosition;
+            }else
+                LeapPosition = new Point(PlayerPosition.x + 2, PlayerPosition.y);
+                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    PlayerPosition = LeapPosition;
+                    return PlayerPosition;
+                } else
+                    LeapPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                        PlayerPosition = LeapPosition;
+                        return PlayerPosition;
+                    } else
+                        return new Point(1,1);
+
+        } else
+            LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y + 3);
+            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                PlayerPosition = LeapPosition;
+                return PlayerPosition;
+            } else
+                LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y + 2);
+                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    PlayerPosition = LeapPosition;
+                    return PlayerPosition;
+                } else
+                    LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                        PlayerPosition = LeapPosition;
+                        return PlayerPosition;
+                    } else
+                        return new Point(1,1);
     }
 
     private Point ConvertMoveToCoordinates(Move pMove) {
