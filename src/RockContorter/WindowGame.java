@@ -172,11 +172,11 @@ public class WindowGame implements ActionListener, KeyListener {
                 break;
             case KeyEvent.VK_E:
                 game.RockPlace();
-//                game.ThrewRock = false;
-
                 break;
             case KeyEvent.VK_R:
-                     game.ThrewRock = true;
+                game.ThrowCounter = 0;
+                game.RockThrowPositionRock();
+                game.ThrewRock = true;
                 break;
 
 

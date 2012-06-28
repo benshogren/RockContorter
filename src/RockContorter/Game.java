@@ -22,6 +22,7 @@ public class Game {
     public Point RockShield;
     public Point ThrowRock;
     public Point newRockPosition;
+    public Point newThrowRockPosition;
 
 
     public Game(Board pBoard) {
@@ -37,8 +38,8 @@ public class Game {
     }
 
     public void Update() {
-        if  ((updateCount == 2)) {
-            moveThrowRock();
+        if  ((updateCount == 0)) {
+            MoveThrowRock();
             updateCount = 0;
         } else {
             updateCount = updateCount + 1;
@@ -79,11 +80,8 @@ public class Game {
         }
     }
 
+    public Point RockPlace(){
 
-    public void PositionRock(){
-//        BoardState state = Board.GetState(newRockPosition);
-
-        ThrowCounter = 0;
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
@@ -96,58 +94,58 @@ public class Game {
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
             newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
-
-    }
-
-
-    public Point RockPlace(){
-        PositionRock();
-
         RockShield = newRockPosition;
         Board.RockShieldAsBoardState(RockShield);
-
         return RockShield;
     }
 
     public boolean WallInTheWay(Point newTRockPosition) {
         return (Board.GetState(newTRockPosition) == BoardState.WALL);
     }
-    public Point moveThrowRock (){
-
-
-        BoardState state = Board.GetState(RockShield);
-        if (state == BoardState.WALL){
-            return RockShield;
+    public void RockThrowPositionRock(){
+        if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
+            newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
+        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
+            newThrowRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        }
+        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
+            newThrowRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        }
+        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
+            newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        }
+    }
+    public Point MoveThrowRock(){
+        BoardState state = Board.GetState(RockShield);
         if (RockShield == null){
             return new Point(1,1);
         }
         if (!ThrewRock) {
             return new Point(1,2);
         }
-
         ThrowCounter = ThrowCounter + 1;
         if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
             Board.BackToEmpty(RockShield);
             ThrewShield = true;
         }
-
         if (FaceUp){
-            newRockPosition = new Point(newRockPosition.x, newRockPosition.y - 1);
+            newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y - 1);
         } else if (FaceLeft){
-            newRockPosition = new Point(newRockPosition.x - 1, newRockPosition.y);
+            newThrowRockPosition = new Point(newThrowRockPosition.x - 1, newThrowRockPosition.y);
         } else if (FaceRight) {
-            newRockPosition = new Point(newRockPosition.x + 1, newRockPosition.y);
+            newThrowRockPosition = new Point(newThrowRockPosition.x + 1, newThrowRockPosition.y);
         } else {
-            newRockPosition = new Point(newRockPosition.x, newRockPosition.y + 1);
+            newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y + 1);
         }
-        if (!WallInTheWay(newRockPosition)) {
-            ThrowRock = newRockPosition;
+        if (!WallInTheWay(newThrowRockPosition)) {
+            ThrowRock = newThrowRockPosition;
         } else {
+            ThrowRock = null;
             ThrewRock = false;
+            RockShield = null;
         }
         return ThrowRock;
-
     }
 
     private Point ConvertMoveToCoordinates(Move pMove) {
