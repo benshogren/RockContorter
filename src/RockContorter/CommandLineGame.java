@@ -67,6 +67,15 @@ public class CommandLineGame {
 //                character = "O";
             } else if(position.getKey().equals(game.ThrowRock)){
                 character = "O";
+            } else if(position.getKey().equals(game.TopOfShell)){
+                character = "O";
+            } else if(position.getKey().equals(game.RightOfShell)){
+                character = "O";
+            } else if(position.getKey().equals(game.LeftOfShell)){
+                character = "O";
+            } else if(position.getKey().equals(game.BottomOfShell)){
+                character = "O";
+
             } else if (position.getValue() == BoardState.WALL) {
                 character = "#";
             } else if (position.getValue() == BoardState.ROCK) {

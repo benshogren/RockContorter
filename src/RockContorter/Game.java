@@ -9,6 +9,7 @@ public class Game {
     public boolean Victory = false;
     public boolean ThrewRock = false;
     public boolean ThrewShield = false;
+    public boolean MadeWave = false;
 
     public boolean FaceRight;
     public boolean FaceLeft;
@@ -27,22 +28,37 @@ public class Game {
     public Point newThrowRockPosition;
     public Point TunnelPosition;
 
-//    public java.util.List<Point> Shell;
+    public java.util.List<Point> Shell;
 
     public Point ChopWallSection1;
     public Point ChopWallSection2;
     public Point ChopWallSection3;
+
+    public Point TopRockWave;
+    public Point TopLeftRockWave;
+    public Point TopRightRockWave;
+    public Point RightRockWave;
+    public Point LeftRockWave;
+    public Point BottomRightRockWave;
+    public Point BottomLeftRockWave;
+    public Point BottomRockWave;
+
+
+    public Point TopOfShell;
+    public Point LeftOfShell;
+    public Point RightOfShell;
+    public Point BottomOfShell;
 
 
     public Game(Board pBoard) {
         Board = pBoard;
         PlayerPosition = new Point(7, 5);
 
-//        Shell = new ArrayList<Point>();
-//        Shell.add(new Point());
-//        Shell.add(new Point());
-//        Shell.add(new Point());
-//        Shell.add(new Point());
+        Shell = new ArrayList<Point>();
+        Shell.add(new Point());
+        Shell.add(new Point());
+        Shell.add(new Point());
+        Shell.add(new Point());
 
     }
 
@@ -56,6 +72,7 @@ public class Game {
     public void Update() {
         if  ((updateCount == 0)) {
             MoveThrowRock();
+            RockWave();
             updateCount = 0;
         } else {
             updateCount = updateCount + 1;
@@ -114,22 +131,68 @@ public class Game {
         return RockShield;
     }
 
+
+
+
+
     public void RockShell(){
-        Point TopOfShell = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-        Board.RockAsBoardState(TopOfShell);
-        Point LeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-        Board.RockAsBoardState(LeftOfShell);
-        Point RightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-        Board.RockAsBoardState(RightOfShell);
-        Point BottomOfShell = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-        Board.RockAsBoardState(BottomOfShell);
+//        TopOfShell = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+//        Board.RockAsBoardState(TopOfShell);
+//        LeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+//        Board.RockAsBoardState(LeftOfShell);
+//        RightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+//        Board.RockAsBoardState(RightOfShell);
+//        BottomOfShell = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+//        Board.RockAsBoardState(BottomOfShell);
 
+        Shell.set(0, new Point(PlayerPosition.x, PlayerPosition.y - 1));
+        TopOfShell = Shell.get(0);
+        Board.RockAsBoardState(Shell.get(0));
 
+        Shell.set(1, new Point(PlayerPosition.x - 1, PlayerPosition.y));
+        LeftOfShell = Shell.get(1);
+        Board.RockAsBoardState(Shell.get(1));
 
+        Shell.set(2, new Point(PlayerPosition.x + 1, PlayerPosition.y));
+        RightOfShell = Shell.get(2);
+        Board.RockAsBoardState(Shell.get(2));
 
+        Shell.set(3, new Point(PlayerPosition.x, PlayerPosition.y + 1));
+        BottomOfShell = Shell.get(3);
+        Board.RockAsBoardState(Shell.get(3));
 
+//        Point TopRightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y - 1);
+//        Board.RockAsBoardState(TopRightOfShell);
+//        Point TopLeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y - 1);
+//        Board.RockAsBoardState(TopLeftOfShell);
+//        Point BottomLeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y + 1);
+//        Board.RockAsBoardState(BottomLeftOfShell);
+//        Point BottomRightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y + 1);
+//        Board.RockAsBoardState(BottomRightOfShell);
+    }
+
+    public void RockWave(){
+//
+////        TopOfShell = new Point(TopOfShell.x, TopOfShell.y - 1);
+////        LeftOfShell = new Point(LeftOfShell.x - 1, LeftOfShell.y);
+////        RightOfShell = new Point(RightOfShell.x + 1, RightOfShell.y);
+////        BottomOfShell = new Point(BottomOfShell.x, BottomOfShell.y + 1);
+
+    if (MadeWave){
+        TopOfShell = Shell.get(0);
+        LeftOfShell = Shell.get(1);
+        RightOfShell = Shell.get(2);
+        BottomOfShell = Shell.get(3);
+
+        Shell.set(0, new Point(TopOfShell.x, TopOfShell.y - 1));
+        Shell.set(1, new Point(LeftOfShell.x - 1, LeftOfShell.y));
+        Shell.set(2, new Point(RightOfShell.x + 1, RightOfShell.y));
+        Shell.set(3, new Point(BottomOfShell.x, BottomOfShell.y + 1));
 
     }
+
+    }
+
 
     public boolean WallInTheWay(Point position) {
         return (Board.GetState(position) == BoardState.WALL);

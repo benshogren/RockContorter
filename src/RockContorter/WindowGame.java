@@ -190,6 +190,9 @@ public class WindowGame implements ActionListener, KeyListener {
             case KeyEvent. VK_T:
                 game.RockShell();
                 break;
+            case KeyEvent. VK_Y:
+                game.MadeWave = true;
+                break;
         }
         updateUI();
     }
