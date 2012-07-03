@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Board {
     public HashMap<Point, BoardState> BoardGrid;
-    public int BOARD_SIZE = 30;
+    public int BOARD_SIZE = 40;
 
 
 
@@ -14,22 +14,28 @@ public class Board {
     public Board() {
         BoardGrid = new HashMap<Point, BoardState>();
 
-        convertToMap("88888888888888888888888888888");
-        convertToMap("8                           8");
-        convertToMap("8                     OO    8");
-        convertToMap("8                     OOO   8");
-        convertToMap("8                    OOOO   8");
-        convertToMap("8                    OO     8");
-        convertToMap("8                           8");
-        convertToMap("8                      O    8");
-        convertToMap("8                     OO    8");
-        convertToMap("8                           8");
-        convertToMap("8                           8");
-        convertToMap("8                           8");
-        convertToMap("8                           8");
-        convertToMap("8                           8");
-        convertToMap("8                           8");
-        convertToMap("88888888888888888888888888888");
+
+        convertToMap("888888888888888888888888888888888");
+        convertToMap("888888888888888888888888888888888");
+        convertToMap("888888888888888888888888888888888");
+        convertToMap("888                           888");
+        convertToMap("888                     OO    888");
+        convertToMap("888                     OOO   888");
+        convertToMap("888                    OOOO   888");
+        convertToMap("888                    OO     888");
+        convertToMap("888                           888");
+        convertToMap("888                      O    888");
+        convertToMap("888                    OO     888");
+        convertToMap("888                           888");
+        convertToMap("888                           888");
+        convertToMap("888                           888");
+        convertToMap("888                           888");
+        convertToMap("888                           888");
+        convertToMap("888                           888");
+        convertToMap("888888888888888888888888888888888");
+        convertToMap("888888888888888888888888888888888");
+        convertToMap("888888888888888888888888888888888");
+
     }
 
 
@@ -64,8 +70,8 @@ public class Board {
         return BoardGrid.get(pNewPosition);
     }
 
-    public void RockAsBoardState(Point RockShield) {
-        BoardGrid.put(RockShield, BoardState.ROCK);
+    public void RockAsBoardState(Point position) {
+        BoardGrid.put(position, BoardState.ROCK);
     }
 
     public void BackToEmpty(Point RockShield) {

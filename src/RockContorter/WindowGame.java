@@ -31,7 +31,7 @@ public class WindowGame implements ActionListener, KeyListener {
         titlePanel = new JPanel();
         titlePanel.setLayout(null);
         titlePanel.setLocation(10, 0);
-        titlePanel.setSize(350, 350);
+        titlePanel.setSize(450, 450);
         titlePanel.addKeyListener(this);
         totalGUI.add(titlePanel);
 
@@ -40,7 +40,7 @@ public class WindowGame implements ActionListener, KeyListener {
         gameTextAre.setText(CommandLineGame.present(game));
         gameTextAre.setLocation(0, 0);
         gameTextAre.setSize(700, 700);
-        gameTextAre.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        gameTextAre.setFont(new Font("Monospaced", Font.PLAIN, 12));
         gameTextAre.setForeground(Color.black);
         gameTextAre.addKeyListener(this);
         titlePanel.add(gameTextAre);
@@ -62,34 +62,34 @@ public class WindowGame implements ActionListener, KeyListener {
         buttonPanel.addKeyListener(this);
         totalGUI.add(buttonPanel);
 
-
-        leftButton = new JButton("Left");
-        leftButton.setLocation(30,80);
-        leftButton.setSize(70, 70);
-        leftButton.addActionListener(this);
-        leftButton.addKeyListener(this);
-        buttonPanel.add(leftButton);
-
-        downButton = new JButton("Down");
-        downButton.setLocation(110, 80);
-        downButton.setSize(70, 70);
-        downButton.addActionListener(this);
-        downButton.addKeyListener(this);
-        buttonPanel.add(downButton);
-
-        rightButton = new JButton("Right");
-        rightButton.setLocation(190, 80);
-        rightButton.setSize(70, 70);
-        rightButton.addActionListener(this);
-        rightButton.addKeyListener(this);
-        buttonPanel.add(rightButton);
-
-        upButton = new JButton("Up");
-        upButton.setLocation(110, 0);
-        upButton.setSize(70, 70);
-        upButton.addActionListener(this);
-        upButton.addKeyListener(this);
-        buttonPanel.add(upButton);
+//
+//        leftButton = new JButton("Left");
+//        leftButton.setLocation(30,80);
+//        leftButton.setSize(70, 70);
+//        leftButton.addActionListener(this);
+//        leftButton.addKeyListener(this);
+//        buttonPanel.add(leftButton);
+//
+//        downButton = new JButton("Down");
+//        downButton.setLocation(110, 80);
+//        downButton.setSize(70, 70);
+//        downButton.addActionListener(this);
+//        downButton.addKeyListener(this);
+//        buttonPanel.add(downButton);
+//
+//        rightButton = new JButton("Right");
+//        rightButton.setLocation(190, 80);
+//        rightButton.setSize(70, 70);
+//        rightButton.addActionListener(this);
+//        rightButton.addKeyListener(this);
+//        buttonPanel.add(rightButton);
+//
+//        upButton = new JButton("Up");
+//        upButton.setLocation(110, 0);
+//        upButton.setSize(70, 70);
+//        upButton.addActionListener(this);
+//        upButton.addKeyListener(this);
+//        buttonPanel.add(upButton);
 
         totalGUI.setOpaque(true);
         return totalGUI;
@@ -186,6 +186,9 @@ public class WindowGame implements ActionListener, KeyListener {
                 break;
             case KeyEvent.VK_G:
                 game.ChopWall();
+                break;
+            case KeyEvent. VK_T:
+                game.RockShell();
                 break;
         }
         updateUI();

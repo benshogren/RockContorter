@@ -1,6 +1,7 @@
 package RockContorter;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Game {
     public Board Board;
@@ -26,7 +27,7 @@ public class Game {
     public Point newThrowRockPosition;
     public Point TunnelPosition;
 
-//    public java.util.List<Point> ChopWall;
+//    public java.util.List<Point> Shell;
 
     public Point ChopWallSection1;
     public Point ChopWallSection2;
@@ -37,12 +38,11 @@ public class Game {
         Board = pBoard;
         PlayerPosition = new Point(7, 5);
 
-//        ChopWall = new ArrayList<Point>();
-//        ChopWall.add(new Point());
-//        ChopWall.add(new Point());
-//        ChopWall.add(new Point());
-
-
+//        Shell = new ArrayList<Point>();
+//        Shell.add(new Point());
+//        Shell.add(new Point());
+//        Shell.add(new Point());
+//        Shell.add(new Point());
 
     }
 
@@ -112,6 +112,23 @@ public class Game {
         RockShield = newRockPosition;
         Board.RockAsBoardState(RockShield);
         return RockShield;
+    }
+
+    public void RockShell(){
+        Point TopOfShell = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+        Board.RockAsBoardState(TopOfShell);
+        Point LeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        Board.RockAsBoardState(LeftOfShell);
+        Point RightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        Board.RockAsBoardState(RightOfShell);
+        Point BottomOfShell = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        Board.RockAsBoardState(BottomOfShell);
+
+
+
+
+
+
     }
 
     public boolean WallInTheWay(Point position) {

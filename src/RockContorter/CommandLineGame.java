@@ -47,7 +47,7 @@ public class CommandLineGame {
     public static String ConvertBoardToString(Game game) {
         String[] boardString = new String[game.Board.BOARD_SIZE];
         for (int i = 0; i < game.Board.BOARD_SIZE; i++) {
-            boardString[i] = "                                            ";
+            boardString[i] = "                                                         ";
         }
 
         for (Map.Entry<Point, BoardState> position : game.Board.BoardGrid.entrySet()) {
