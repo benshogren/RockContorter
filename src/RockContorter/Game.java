@@ -27,6 +27,7 @@ public class Game {
     public Point newRockPosition;
     public Point newThrowRockPosition;
     public Point TunnelPosition;
+    public Point IsThereARockHere;
 
     public java.util.List<Point> Shell;
 
@@ -203,32 +204,41 @@ public class Game {
     }
 
     public Point RockThrowPositionRock(){
+
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+            IsThereARockHere = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
         if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+            IsThereARockHere = new Point(PlayerPosition.x - 1, PlayerPosition.y);
         }
         if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+            IsThereARockHere = new Point(PlayerPosition.x + 1, PlayerPosition.y);
         }
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+            IsThereARockHere = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
         return newThrowRockPosition;
     }
 
+    public void RockInFront(){
+        BoardState IsThere = Board.GetState(IsThereARockHere);
+        if (IsThere != BoardState.ROCK){
+            ThrewRock = false;
+        }
+    }
     public Point MoveThrowRock(){
         BoardState state = Board.GetState(newThrowRockPosition);
-//        if (RockShield == null){
-//            return new Point(1,1);
-//        }
+
         if (!ThrewRock) {
             return new Point(1,2);
         }
         ThrowCounter = ThrowCounter + 1;
         if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
-            Board.BackToEmpty(RockShield);
+            Board.BackToEmpty(newThrowRockPosition);
             ThrewShield = true;
         }
         if (FaceUp){
@@ -245,7 +255,6 @@ public class Game {
         } else {
             ThrowRock = null;
             ThrewRock = false;
-//            RockShield = null;
         }
         return ThrowRock;
     }

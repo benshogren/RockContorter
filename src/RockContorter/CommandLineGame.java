@@ -63,8 +63,7 @@ public class CommandLineGame {
                 character = ">";
 //            } else if(position.getKey().equals(game.PlayerPosition)){
 //                character = "^";
-//            } else if(position.getKey().equals(game.RockShield) && !game.ThrewShield){
-//                character = "O";
+
             } else if(position.getKey().equals(game.ThrowRock)){
                 character = "O";
             } else if(position.getKey().equals(game.TopOfShell)){
