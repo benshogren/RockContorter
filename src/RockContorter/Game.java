@@ -8,7 +8,6 @@ public class Game {
     public boolean mGameOver;
     public boolean Victory = false;
     public boolean ThrewRock = false;
-    public boolean ThrewShield = false;
     public boolean MadeWave = false;
 
     public boolean FaceRight;
@@ -72,7 +71,7 @@ public class Game {
 
     public void Update() {
         if  ((updateCount == 0)) {
-            MoveThrowRock();
+            ThrowRock();
             RockWave();
             updateCount = 0;
         } else {
@@ -213,7 +212,7 @@ public class Game {
         }
     }
 
-    public Point MoveThrowRock(){
+    public Point ThrowRock(){
         BoardState state = Board.GetState(newThrowRockPosition);
 
         if (!ThrewRock) {
@@ -222,7 +221,6 @@ public class Game {
         ThrowCounter = ThrowCounter + 1;
         if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
             Board.BackToEmpty(newThrowRockPosition);
-            ThrewShield = true;
         }
         if (FaceUp){
             newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y - 1);
@@ -241,8 +239,6 @@ public class Game {
         }
         return ThrowRock;
     }
-
-
 
     public void ChopWall(){
         if (FaceUp){
@@ -267,27 +263,6 @@ public class Game {
         Board.RockAsBoardState(ChopWallSection3);
 
         //later make so it hurts enemies when hits, but not forever: null the points in update
-    }
-
-
-
-
-    public void RockTunnel(Point TunnelPosition){
-        if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
-            TunnelPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-        }
-        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
-            TunnelPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-        }
-        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
-            TunnelPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-        }
-        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
-            TunnelPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-        }
-        if (RockInTheWay(TunnelPosition)){
-        Board.BoardGrid.put(TunnelPosition, BoardState.EMPTY);
-        }
     }
 
     public Point Leap(){
