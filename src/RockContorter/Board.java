@@ -2,7 +2,6 @@ package RockContorter;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Board {
     public HashMap<Point, BoardState> BoardGrid;
@@ -54,13 +53,13 @@ public class Board {
         BoardState state;
         switch (pBoardCharacter) {
             case '8':
-                state = BoardState.WALL;
+                state = new Wall();
                 break;
             case 'O':
-                state = BoardState.ROCK;
+                state = new Static_Rock();
                 break;
             default:
-                state = BoardState.EMPTY;
+                state = new Empty();
                 break;
         }
         return state;
@@ -71,10 +70,10 @@ public class Board {
     }
 
     public void RockAsBoardState(Point position) {
-        BoardGrid.put(position, BoardState.ROCK);
+        BoardGrid.put(position, new Static_Rock());
     }
 
     public void BackToEmpty(Point RockShield) {
-        BoardGrid.put(RockShield, BoardState.EMPTY);
+        BoardGrid.put(RockShield, new Empty());
     }
 }

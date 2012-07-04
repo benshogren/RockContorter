@@ -23,8 +23,8 @@ public class Game {
     public Point LeapPosition;
     public Point RockShield;
     public Point ThrowRock;
-    public Point newRockPosition;
-    public Point newThrowRockPosition;
+    private Point newRockPosition;
+    private Point newThrowRockPosition;
     public Point IsThereARockHere;
 
     public java.util.List<Point> Shell;
@@ -71,6 +71,7 @@ public class Game {
     public void Move (Move pMove) {
         Point newPosition = ConvertMoveToCoordinates(pMove);
         BoardState state = Board.GetState(newPosition);
+        state.Update();
         if (mGameOver) {
             return;
         }
@@ -95,7 +96,7 @@ public class Game {
             FaceDown = false;
             FaceLeft = false;
         }
-        if ((state == BoardState.WALL)||(state == BoardState.ROCK) || (newPosition == newRockPosition)) {
+        if ((state instanceof Wall)||(state instanceof Static_Rock) || (newPosition == newRockPosition)) {
             // dont move him
         } else {
             PlayerPosition = newPosition;
@@ -190,16 +191,16 @@ public class Game {
     }
 
     public boolean WallInTheWay(Point position) {
-        return (Board.GetState(position) == BoardState.WALL);
+        return (Board.GetState(position) instanceof Wall);
     }
 
     public boolean RockInTheWay(Point position) {
-        return (Board.GetState(position) == BoardState.ROCK);
+        return (Board.GetState(position) instanceof Static_Rock);
     }
 
     public void RockInFront(){
         BoardState IsThere = Board.GetState(IsThereARockHere);
-        if (IsThere != BoardState.ROCK){
+        if (! (IsThere instanceof Static_Rock)){
             ThrewRock = false;
         }
     }
@@ -211,7 +212,7 @@ public class Game {
             return new Point(1,2);
         }
         ThrowCounter = ThrowCounter + 1;
-        if ((state == BoardState.ROCK) && (ThrowCounter < 2)){
+        if ((state instanceof Static_Rock) && (ThrowCounter < 2)){
             Board.BackToEmpty(newThrowRockPosition);
         }
         if (FaceUp){

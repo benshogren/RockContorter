@@ -1,6 +1,12 @@
 package RockContorter;
-public enum BoardState {
-    WALL,
-    EMPTY,
-    ROCK
+
+import java.awt.*;
+
+public interface BoardState {
+    public void Update();
+
 }
+//public class BoardLocation{
+//    public Point coordinate;
+//
+//}

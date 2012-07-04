@@ -75,9 +75,9 @@ public class CommandLineGame {
             } else if(position.getKey().equals(game.BottomOfShell)){
                 character = "O";
 
-            } else if (position.getValue() == BoardState.WALL) {
+            } else if (position.getValue() instanceof Wall) {
                 character = "#";
-            } else if (position.getValue() == BoardState.ROCK) {
+            } else if (position.getValue() instanceof  Static_Rock) {
                 character = "O";
             } else {
                 character = " ";
