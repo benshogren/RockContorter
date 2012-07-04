@@ -25,7 +25,6 @@ public class Game {
     public Point ThrowRock;
     public Point newRockPosition;
     public Point newThrowRockPosition;
-    public Point TunnelPosition;
     public Point IsThereARockHere;
 
     public java.util.List<Point> Shell;
