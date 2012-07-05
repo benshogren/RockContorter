@@ -73,7 +73,7 @@ public class Board {
         BoardGrid.put(position, new Static_Rock());
     }
 
-    public void BackToEmpty(Point RockShield) {
-        BoardGrid.put(RockShield, new Empty());
+    public void BackToEmpty(Point position) {
+        BoardGrid.put(position, new Empty());
     }
 }

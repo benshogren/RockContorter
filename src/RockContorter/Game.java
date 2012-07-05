@@ -152,18 +152,42 @@ public class Game {
     }
 
     public void RockWave(){
+//        BoardState stateOfTop = Board.GetState(TopOfShell);
+//        if ((stateOfTop instanceof Static_Rock) && (ThrowCounter < 2)){
+//            Board.BackToEmpty(TopOfShell);
+//        }
+//        BoardState stateOfLeft = Board.GetState(T);
+//        if ((stateOfLeft instanceof Static_Rock) && (ThrowCounter < 2)){
+//            Board.BackToEmpty(newThrowRockPosition);
+//        }
+//        BoardState stateOfRight = Board.GetState(newThrowRockPosition);
+//        if ((stateOfRight instanceof Static_Rock) && (ThrowCounter < 2)){
+//            Board.BackToEmpty(newThrowRockPosition);
+//        }
+//        BoardState stateOfBottom = Board.GetState(newThrowRockPosition);
+//        if ((stateOfBottom instanceof Static_Rock) && (ThrowCounter < 2)){
+//            Board.BackToEmpty(newThrowRockPosition);
+//        }
+
+
+
         if (MadeWave){
+            Board.BackToEmpty(TopOfShell);
+            Board.BackToEmpty(LeftOfShell);
+            Board.BackToEmpty(RightOfShell);
+            Board.BackToEmpty(BottomOfShell);
+
             if (Shell.get(0) != null){
-            Shell.set(0, new Point(Shell.get(0).x, Shell.get(0).y - 1));
+                Shell.set(0, new Point(Shell.get(0).x, Shell.get(0).y - 1));
             }
             if (Shell.get(1) != null){
-            Shell.set(1, new Point(Shell.get(1).x - 1, Shell.get(1).y));
+                Shell.set(1, new Point(Shell.get(1).x - 1, Shell.get(1).y));
             }
             if (Shell.get(2) != null) {
                 Shell.set(2, new Point(Shell.get(2).x + 1, Shell.get(2).y));
             }
             if (Shell.get(3) != null){
-            Shell.set(3, new Point(Shell.get(3).x, Shell.get(3).y + 1));
+                Shell.set(3, new Point(Shell.get(3).x, Shell.get(3).y + 1));
             }
             if (WallInTheWay(Shell.get(0)) || RockInTheWay(Shell.get(0))) {
                 Shell.set(0, null);
@@ -252,16 +276,17 @@ public class Game {
             Board.BackToEmpty(newThrowRockPosition);
         }
         //to make so that rock does not follow face, switch following booleans to UpPosition, LeftPosition, RightPosition, and DownPosition respectively
-        if (FaceUp){
+        //to follow face: booleans are FaceUp, FaceLeft, FaceRight, and Face,Down.
+        if (UpPosition){
             newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y - 1);
         }
-        if (FaceLeft){
+        if (LeftPosition){
             newThrowRockPosition = new Point(newThrowRockPosition.x - 1, newThrowRockPosition.y);
         }
-        if (FaceRight) {
+        if (RightPosition) {
             newThrowRockPosition = new Point(newThrowRockPosition.x + 1, newThrowRockPosition.y);
         }
-        if (FaceDown) {
+        if (DownPosition) {
             newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y + 1);
         }
         if (!WallInTheWay(newThrowRockPosition) && !RockInTheWay(newThrowRockPosition)) {
