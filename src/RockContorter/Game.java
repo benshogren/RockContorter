@@ -108,27 +108,35 @@ public class Game {
         if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
             IsThereARockHere = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         }
         if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
             IsThereARockHere = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-            newRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
         }
         if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
             IsThereARockHere = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-            newRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
         }
         if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
             newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
             IsThereARockHere = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
         }
         return newThrowRockPosition;
     }
 
     public Point RockPlace(){
+        if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
+            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+        }
+        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
+            newRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        }
+        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
+            newRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        }
+        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
+            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        }
         RockShield = newRockPosition;
         Board.RockAsBoardState(RockShield);
         return RockShield;
