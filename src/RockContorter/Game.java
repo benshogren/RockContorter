@@ -25,6 +25,7 @@ public class Game {
     public int moveCount = 0;
     public int updateCount = 0;
     public int ThrowCounter = 0;
+    public int WaveCounter = 0;
 
     public Point PlayerPosition;
     public Point LeapPosition;
@@ -68,13 +69,18 @@ public class Game {
     }
 
     public void Update() {
-        if  ((updateCount == 0)) {
+
+
+        if  (updateCount == 0) {
             ThrowRock();
             RockWave();
             updateCount = 0;
         } else {
             updateCount = updateCount + 1;
         }
+
+          WaveCounter = WaveCounter + 1;
+
     }
 
     public void Move (Move pMove) {
@@ -151,32 +157,29 @@ public class Game {
         Board.RockAsBoardState(Shell.get(3));
     }
 
+    public void ShellClear(){
+        Board.BackToEmpty(TopOfShell);
+        Board.BackToEmpty(LeftOfShell);
+        Board.BackToEmpty(RightOfShell);
+        Board.BackToEmpty(BottomOfShell);
+    }
+
+
+
     public void RockWave(){
-//        BoardState stateOfTop = Board.GetState(TopOfShell);
-//        if ((stateOfTop instanceof Static_Rock) && (ThrowCounter < 2)){
-//            Board.BackToEmpty(TopOfShell);
-//        }
-//        BoardState stateOfLeft = Board.GetState(T);
-//        if ((stateOfLeft instanceof Static_Rock) && (ThrowCounter < 2)){
-//            Board.BackToEmpty(newThrowRockPosition);
-//        }
-//        BoardState stateOfRight = Board.GetState(newThrowRockPosition);
-//        if ((stateOfRight instanceof Static_Rock) && (ThrowCounter < 2)){
-//            Board.BackToEmpty(newThrowRockPosition);
-//        }
-//        BoardState stateOfBottom = Board.GetState(newThrowRockPosition);
-//        if ((stateOfBottom instanceof Static_Rock) && (ThrowCounter < 2)){
-//            Board.BackToEmpty(newThrowRockPosition);
-//        }
 
+//        if (!MadeWave){
+//            Shell.set(0, null);
+//            Shell.set(1, null);
+//            Shell.set(2, null);
+//            Shell.set(3, null);
+//        }
+        if (WaveCounter > 10){
+            MadeWave = false;
 
+        }
 
         if (MadeWave){
-            Board.BackToEmpty(TopOfShell);
-            Board.BackToEmpty(LeftOfShell);
-            Board.BackToEmpty(RightOfShell);
-            Board.BackToEmpty(BottomOfShell);
-
             if (Shell.get(0) != null){
                 Shell.set(0, new Point(Shell.get(0).x, Shell.get(0).y - 1));
             }
@@ -209,8 +212,14 @@ public class Game {
             } else {
                 BottomOfShell = Shell.get(3);
             }
+
          }
+
     }
+
+
+
+
 
     public boolean WallInTheWay(Point position) {
         return (Board.GetState(position) instanceof Wall);

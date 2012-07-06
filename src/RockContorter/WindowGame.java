@@ -189,6 +189,9 @@ public class WindowGame implements ActionListener, KeyListener {
                 game.RockShell();
                 break;
             case KeyEvent. VK_Y:
+                game.WaveCounter = 0;
+
+                game.ShellClear();
                 game.MadeWave = true;
                 break;
         }
