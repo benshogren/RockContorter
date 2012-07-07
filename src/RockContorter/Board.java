@@ -37,7 +37,13 @@ public class Board {
 
     }
 
+    public boolean WallInTheWay(Point position) {
+        return (GetState(position) instanceof Wall);
+    }
 
+    public boolean RockInTheWay(Point position) {
+        return (GetState(position) instanceof Static_Rock);
+    }
     private int YAxis = 0;
 
     private void convertToMap(String pMapString) {

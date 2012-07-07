@@ -53,13 +53,13 @@ public class CommandLineGame {
         for (Map.Entry<Point, BoardPiece> position : game.Board.BoardGrid.entrySet()) {
             String character = "";
 
-            if((position.getKey().equals(game.PlayerPosition)) && (game.FaceLeft)){
+            if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MOVELeft)){
                 character = "<";
-            } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceUp)){
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MOVEUp)){
                 character = "^";
-            } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceDown)){
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MoveDown)){
                 character = "v";
-            } else if((position.getKey().equals(game.PlayerPosition)) && (game.FaceRight)){
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MOVERight)){
                 character = ">";
 //            } else if(position.getKey().equals(game.PlayerPosition)){
 //                character = "^";

@@ -11,15 +11,8 @@ public class Game {
     public boolean ThrewRock = false;
     public boolean MadeWave = false;
 
-    public boolean FaceRight;
-    public boolean FaceLeft;
-    public boolean FaceUp;
-    public boolean FaceDown;
+    public Move playerDirection;
 
-    public boolean RightPosition;
-    public boolean LeftPosition;
-    public boolean UpPosition;
-    public boolean DownPosition;
 
 
 
@@ -31,11 +24,8 @@ public class Game {
     public Point PlayerPosition;
     public Point LeapPosition;
     public Point RockShield;
-    public Point ThrowRock;
     private Point newRockPosition;
-    private Point newThrowRockPosition;
     public Point IsThereARockHere;
-    public Point ThrowRockPosition;
 
 
     public java.util.List<Point> Shell;
@@ -95,25 +85,13 @@ public class Game {
             return;
         }
         if (newPosition.y < PlayerPosition.y) {
-            FaceUp = true;
-            FaceRight = false;
-            FaceDown = false;
-            FaceLeft = false;
+            playerDirection = Move.MOVEUp;
         } else if (newPosition.x < PlayerPosition.x){
-            FaceUp = false;
-            FaceRight = false;
-            FaceDown = false;
-            FaceLeft = true;
+            playerDirection = Move.MOVELeft;
         } else if (newPosition.y > PlayerPosition.y){
-            FaceUp = false;
-            FaceRight = false;
-            FaceDown = true;
-            FaceLeft = false;
+            playerDirection = Move.MoveDown;
         } else if (newPosition.x > PlayerPosition.x) {
-            FaceUp = false;
-            FaceRight = true;
-            FaceDown = false;
-            FaceLeft = false;
+            playerDirection = Move.MOVERight;
         }
         if ((piece instanceof Wall)||(piece instanceof Static_Rock) || (newPosition == newRockPosition)) {
             // dont move him
@@ -123,25 +101,13 @@ public class Game {
     }
 
     public Point RockPlace(){
-        if (FaceUp && !FaceLeft && !FaceDown && ! FaceRight){
-            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-        }
-        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
-            newRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-        }
-        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
-            newRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-        }
-        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
-            newRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-        }
+        newRockPosition = ConvertPointFromMove(PlayerPosition, playerDirection);
         RockShield = newRockPosition;
         Board.RockAsBoardState(RockShield);
         return RockShield;
     }
 
     public void RockShell(){
-
         Shell.set(0, new Point(PlayerPosition.x, PlayerPosition.y - 1));
         TopOfShell = Shell.get(0);
         Board.RockAsBoardState(Shell.get(0));
@@ -192,22 +158,22 @@ public class Game {
             if (Shell.get(3) != null){
                 Shell.set(3, new Point(Shell.get(3).x, Shell.get(3).y + 1));
             }
-            if (WallInTheWay(Shell.get(0)) || RockInTheWay(Shell.get(0))) {
+            if (Board.WallInTheWay(Shell.get(0)) || Board.RockInTheWay(Shell.get(0))) {
                 Shell.set(0, null);
             } else {
                 TopOfShell = Shell.get(0);
             }
-            if (WallInTheWay(Shell.get(1)) || RockInTheWay(Shell.get(1))) {
+            if (Board.WallInTheWay(Shell.get(1)) || Board.RockInTheWay(Shell.get(1))) {
                 Shell.set(1, null);
             } else {
                 LeftOfShell = Shell.get(1);
             }
-            if (WallInTheWay(Shell.get(2)) || RockInTheWay(Shell.get(2))) {
+            if (Board.WallInTheWay(Shell.get(2)) || Board.RockInTheWay(Shell.get(2))) {
                 Shell.set(2, null);
             } else {
                 RightOfShell = Shell.get(2);
             }
-            if (WallInTheWay(Shell.get(3)) || RockInTheWay(Shell.get(3))) {
+            if (Board.WallInTheWay(Shell.get(3)) || Board.RockInTheWay(Shell.get(3))) {
                 Shell.set(3, null);
             } else {
                 BottomOfShell = Shell.get(3);
@@ -217,13 +183,7 @@ public class Game {
 
     }
 
-    public boolean WallInTheWay(Point position) {
-        return (Board.GetState(position) instanceof Wall);
-    }
 
-    public boolean RockInTheWay(Point position) {
-        return (Board.GetState(position) instanceof Static_Rock);
-    }
 
     public void RockInFront(){
         BoardPiece isThere = Board.GetState(IsThereARockHere);
@@ -233,109 +193,17 @@ public class Game {
     }
 
     public void PositionRock(){
-        if (FaceUp) {
-            Point placeRock = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-            this.Board.BoardGrid.put(placeRock, new Flying_Rock(placeRock, Move.MOVEUp));
-        } else if (FaceDown) {
-            Point placeRock = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-            this.Board.BoardGrid.put(placeRock, new Flying_Rock(placeRock, Move.MoveDown));
-        } else if (FaceRight) {
-            Point placeRock = new Point(PlayerPosition.x + 1, PlayerPosition.y );
-            this.Board.BoardGrid.put(placeRock, new Flying_Rock(placeRock, Move.MOVERight));
-        } else if (FaceLeft) {
-            Point placeRock = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-            this.Board.BoardGrid.put(placeRock, new Flying_Rock(placeRock, Move.MOVELeft));
-        }
-
-//        //the engine for the positions of blocking and throwing rocks
-//        if (FaceUp && !FaceLeft && !FaceDown && !FaceRight){
-//            newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-//            IsThereARockHere = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-//            UpPosition = true;
-//            LeftPosition = false;
-//            RightPosition = false;
-//            DownPosition = false;
-//        }
-//        if (FaceLeft && !FaceDown && !FaceRight && !FaceUp){
-//            newThrowRockPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-//            IsThereARockHere = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-//            LeftPosition = true;
-//            UpPosition = false;
-//            RightPosition = false;
-//            DownPosition = false;
-//        }
-//        if (FaceRight && !FaceDown && !FaceLeft && !FaceUp){
-//            newThrowRockPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-//            IsThereARockHere = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-//            RightPosition = true;
-//            UpPosition = false;
-//            LeftPosition = false;
-//            DownPosition = false;
-//        }
-//        if (FaceDown && !FaceLeft && !FaceRight && !FaceUp){
-//            newThrowRockPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-//            IsThereARockHere = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-//            DownPosition = true;
-//            UpPosition = false;
-//            LeftPosition = false;
-//            RightPosition = false;
-//        }
-//        return ThrowRockPosition;
+        Point putRockHere = ConvertPointFromMove(PlayerPosition, playerDirection);
+        this.Board.BoardGrid.put(putRockHere, new Flying_Rock(putRockHere, playerDirection));
     }
 
-    public Point ThrowRock(){
-        return new Point(1,1);
-//        BoardPiece piece = Board.GetState(newThrowRockPosition);
-//
-//        if (!ThrewRock) {
-//            ThrowRock = null;
-//            return new Point(1,2);
-//        }
-//        ThrowCounter = ThrowCounter + 1;
-//        if ((piece instanceof Static_Rock) && (ThrowCounter < 2)){
-//            Board.BackToEmpty(newThrowRockPosition);
-//        }
-//        //to make so that rock does not follow face, switch following booleans to UpPosition, LeftPosition, RightPosition, and DownPosition respectively
-//        //to follow face: booleans are FaceUp, FaceLeft, FaceRight, and Face,Down.
-//        if (UpPosition){
-//            newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y - 1);
-//        }
-//        if (LeftPosition){
-//            newThrowRockPosition = new Point(newThrowRockPosition.x - 1, newThrowRockPosition.y);
-//        }
-//        if (RightPosition) {
-//            newThrowRockPosition = new Point(newThrowRockPosition.x + 1, newThrowRockPosition.y);
-//        }
-//        if (DownPosition) {
-//            newThrowRockPosition = new Point(newThrowRockPosition.x, newThrowRockPosition.y + 1);
-//        }
-//        if (!WallInTheWay(newThrowRockPosition) && !RockInTheWay(newThrowRockPosition)) {
-//            ThrowRock = newThrowRockPosition;
-//        } else {
-//            ThrowRock = null;
-//            ThrewRock = false;
-//        }
-//        return ThrowRock;
-    }
 
     public void ChopWall(){
-        if (FaceUp){
-            ChopWallSection1 = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-            ChopWallSection2 = new Point(PlayerPosition.x, PlayerPosition.y - 2);
-            ChopWallSection3 = new Point(PlayerPosition.x, PlayerPosition.y - 3);
-        } else if (FaceLeft){
-            ChopWallSection1 = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-            ChopWallSection2 = new Point(PlayerPosition.x - 2, PlayerPosition.y);
-            ChopWallSection3 = new Point(PlayerPosition.x - 3, PlayerPosition.y);
-        } else if (FaceRight){
-            ChopWallSection1 = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-            ChopWallSection2 = new Point(PlayerPosition.x + 2, PlayerPosition.y);
-            ChopWallSection3 = new Point(PlayerPosition.x + 3, PlayerPosition.y);
-        } else {
-            ChopWallSection1 = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-            ChopWallSection2 = new Point(PlayerPosition.x, PlayerPosition.y + 2);
-            ChopWallSection3 = new Point(PlayerPosition.x, PlayerPosition.y + 3);
-        }
+
+        ChopWallSection1 = ConvertPointFromMove(PlayerPosition, playerDirection);
+        ChopWallSection2 = ConvertPointFromMove(ChopWallSection1, playerDirection);
+        ChopWallSection3 = ConvertPointFromMove(ChopWallSection2, playerDirection);
+
         Board.RockAsBoardState(ChopWallSection1);
         Board.RockAsBoardState(ChopWallSection2);
         Board.RockAsBoardState(ChopWallSection3);
@@ -344,55 +212,55 @@ public class Game {
     }
 
     public Point Leap(){
-        if (FaceUp){
+        if (playerDirection == Move.MOVEUp){
             LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y - 3);
-            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+            if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                 PlayerPosition = LeapPosition;
                 return PlayerPosition;
             } else
                 LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y - 2);
-                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                     PlayerPosition = LeapPosition;
                     return PlayerPosition;
                 } else
                     LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                         PlayerPosition = LeapPosition;
                         return PlayerPosition;
                     } else
                         return new Point(1,1);
 
-        } else if (FaceLeft){
+        } else if (playerDirection == Move.MOVELeft){
             LeapPosition = new Point(PlayerPosition.x - 3, PlayerPosition.y);
-            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+            if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                 PlayerPosition = LeapPosition;
                 return PlayerPosition;
             } else
                 LeapPosition = new Point(PlayerPosition.x - 2, PlayerPosition.y);
-                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                     PlayerPosition = LeapPosition;
                     return PlayerPosition;
                 } else
                     LeapPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                         PlayerPosition = LeapPosition;
                         return PlayerPosition;
                     } else
                         return new Point(1,1);
 
-        } else if (FaceRight){
+        } else if (playerDirection == Move.MOVERight){
             LeapPosition = new Point(PlayerPosition.x + 3, PlayerPosition.y);
-            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+            if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                 PlayerPosition = LeapPosition;
                 return PlayerPosition;
             }else
                 LeapPosition = new Point(PlayerPosition.x + 2, PlayerPosition.y);
-                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                     PlayerPosition = LeapPosition;
                     return PlayerPosition;
                 } else
                     LeapPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                         PlayerPosition = LeapPosition;
                         return PlayerPosition;
                     } else
@@ -400,40 +268,39 @@ public class Game {
 
         } else
             LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y + 3);
-            if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+            if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                 PlayerPosition = LeapPosition;
                 return PlayerPosition;
             } else
                 LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y + 2);
-                if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                     PlayerPosition = LeapPosition;
                     return PlayerPosition;
                 } else
                     LeapPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-                    if (!WallInTheWay(LeapPosition) && !RockInTheWay(LeapPosition)){
+                    if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                         PlayerPosition = LeapPosition;
                         return PlayerPosition;
                     } else
                         return new Point(1,1);
     }
 
-    private Point ConvertMoveToCoordinates(Move pMove) {
-        Point newPosition;
-        switch (pMove) {
-            case MOVELeft:
-                newPosition = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-                break;
-            case MOVERight:
-                newPosition = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-                break;
-            case MOVEUp:
-                newPosition = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-                break;
-            default:
-                newPosition = new Point(PlayerPosition.x, PlayerPosition.y + 1);
-                break;
+    public static Point ConvertPointFromMove(Point p, Move m) {
+        Point nextPoint = p;
+        if (m == Game.Move.MoveDown) {
+            nextPoint = new Point(p.x, p.y+1);
+        } else if (m == Move.MOVEUp) {
+            nextPoint = new Point(p.x, p.y-1);
+        } else if (m == Move.MOVERight) {
+            nextPoint = new Point(p.x+1, p.y);
+        } else if (m == Move.MOVELeft) {
+            nextPoint = new Point(p.x-1, p.y);
         }
-        return newPosition;
+        return nextPoint;
+    }
+
+    private Point ConvertMoveToCoordinates(Move pMove) {
+        return ConvertPointFromMove(PlayerPosition, pMove);
     }
 
     public boolean GameOver() {
