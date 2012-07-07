@@ -50,7 +50,7 @@ public class CommandLineGame {
             boardString[i] = "                                                         ";
         }
 
-        for (Map.Entry<Point, BoardState> position : game.Board.BoardGrid.entrySet()) {
+        for (Map.Entry<Point, BoardPiece> position : game.Board.BoardGrid.entrySet()) {
             String character = "";
 
             if((position.getKey().equals(game.PlayerPosition)) && (game.FaceLeft)){
@@ -64,8 +64,8 @@ public class CommandLineGame {
 //            } else if(position.getKey().equals(game.PlayerPosition)){
 //                character = "^";
 
-            } else if(position.getKey().equals(game.ThrowRock)){
-                character = "O";
+//            } else if(position.getKey().equals(game.ThrowRock)){
+//                character = "O";
             } else if(position.getKey().equals(game.TopOfShell)){
                 character = "O";
             } else if(position.getKey().equals(game.RightOfShell)){
@@ -77,6 +77,8 @@ public class CommandLineGame {
 
             } else if (position.getValue() instanceof Wall) {
                 character = "#";
+            } else if (position.getValue() instanceof Flying_Rock) {
+                character = "F";
             } else if (position.getValue() instanceof  Static_Rock) {
                 character = "O";
             } else {

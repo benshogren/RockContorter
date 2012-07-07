@@ -1,9 +1,9 @@
 package RockContorter;
 
-public class Empty implements BoardState {
+public class Empty implements BoardPiece {
 
     @Override
-    public void Update() {
+    public void Update(Board board) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

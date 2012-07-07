@@ -2,10 +2,11 @@ package RockContorter;
 
 import java.awt.*;
 
-public interface BoardState {
-    public void Update();
+public interface BoardPiece {
+    public void Update(Board board);
 
 }
+
 //public class BoardLocation{
 //    public Point coordinate;
 //

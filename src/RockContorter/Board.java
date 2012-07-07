@@ -4,14 +4,14 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class Board {
-    public HashMap<Point, BoardState> BoardGrid;
+    public HashMap<Point, BoardPiece> BoardGrid;
     public int BOARD_SIZE = 40;
 
 
 
     //This is the constructer for the Board
     public Board() {
-        BoardGrid = new HashMap<Point, BoardState>();
+        BoardGrid = new HashMap<Point, BoardPiece>();
 
 
         convertToMap("888888888888888888888888888888888");
@@ -43,29 +43,29 @@ public class Board {
     private void convertToMap(String pMapString) {
         for (int XAxis = 0; XAxis < pMapString.length(); XAxis++) {
             Point point = new Point(XAxis, YAxis);
-            BoardState state = ConvertToBoardState(pMapString.charAt(XAxis));
-            BoardGrid.put(point, state);
+            BoardPiece piece = ConvertToBoardState(pMapString.charAt(XAxis));
+            BoardGrid.put(point, piece);
         }
         YAxis++;
     }
 
-    private BoardState ConvertToBoardState(char pBoardCharacter) {
-        BoardState state;
+    private BoardPiece ConvertToBoardState(char pBoardCharacter) {
+        BoardPiece piece;
         switch (pBoardCharacter) {
             case '8':
-                state = new Wall();
+                piece = new Wall();
                 break;
             case 'O':
-                state = new Static_Rock();
+                piece = new Static_Rock();
                 break;
             default:
-                state = new Empty();
+                piece = new Empty();
                 break;
         }
-        return state;
+        return piece;
     }
 
-    public BoardState GetState(Point pNewPosition) {
+    public BoardPiece GetState(Point pNewPosition) {
         return BoardGrid.get(pNewPosition);
     }
 
