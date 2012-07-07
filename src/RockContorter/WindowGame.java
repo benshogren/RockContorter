@@ -97,13 +97,13 @@ public class WindowGame implements ActionListener, KeyListener {
 
     public void actionPerformed(ActionEvent e) {
         if((e.getSource() == leftButton)){
-            game.Move(Game.Move.MOVELeft);
+            game.Move(Game.Direction.LEFT);
         }else if(e.getSource() == rightButton){
-            game.Move(Game.Move.MOVERight);
+            game.Move(Game.Direction.RIGHT);
         }else if(e.getSource() == upButton){
-            game.Move(Game.Move.MOVEUp);
+            game.Move(Game.Direction.UP);
         } else if(e.getSource() == downButton) {
-            game.Move(Game.Move.MoveDown);
+            game.Move(Game.Direction.DOWN);
         } else if (e.getSource() == clock ) {
             WindowGame.game.Update();
             updateUI();
@@ -156,19 +156,19 @@ public class WindowGame implements ActionListener, KeyListener {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                game.Move(Game.Move.MOVEUp);
+                game.Move(Game.Direction.UP);
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                game.Move(Game.Move.MoveDown);
+                game.Move(Game.Direction.DOWN);
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                game.Move(Game.Move.MOVERight);
+                game.Move(Game.Direction.RIGHT);
                 break;
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                game.Move(Game.Move.MOVELeft);
+                game.Move(Game.Direction.LEFT);
                 break;
             case KeyEvent.VK_E:
                 game.RockPlace();

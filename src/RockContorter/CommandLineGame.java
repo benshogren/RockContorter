@@ -17,16 +17,16 @@ public class CommandLineGame {
                 char line = (char) tmp;
                 String s = String.valueOf(line);
                 if (s.toLowerCase().equals("w")) {
-                    game.Move(Game.Move.MOVEUp);
+                    game.Move(Game.Direction.UP);
                 }
                 else if (s.toLowerCase().equals("a")) {
-                    game.Move(Game.Move.MOVELeft);
+                    game.Move(Game.Direction.LEFT);
                 }
                 else if (s.toLowerCase().equals("s")) {
-                    game.Move(Game.Move.MoveDown);
+                    game.Move(Game.Direction.DOWN);
                 }
                 else if (s.toLowerCase().equals("d")) {
-                    game.Move(Game.Move.MOVERight);
+                    game.Move(Game.Direction.RIGHT);
                 }
                 System.out.println(present(game));
             }
@@ -53,13 +53,13 @@ public class CommandLineGame {
         for (Map.Entry<Point, BoardPiece> position : game.Board.BoardGrid.entrySet()) {
             String character = "";
 
-            if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MOVELeft)){
+            if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Direction.LEFT)){
                 character = "<";
-            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MOVEUp)){
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Direction.UP)){
                 character = "^";
-            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MoveDown)){
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Direction.DOWN)){
                 character = "v";
-            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Move.MOVERight)){
+            } else if((position.getKey().equals(game.PlayerPosition)) && (game.playerDirection == Game.Direction.RIGHT)){
                 character = ">";
 //            } else if(position.getKey().equals(game.PlayerPosition)){
 //                character = "^";
