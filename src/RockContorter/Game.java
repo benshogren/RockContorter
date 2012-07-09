@@ -8,14 +8,12 @@ public class Game {
     public Board Board;
     public boolean mGameOver;
     public boolean Victory = false;
-    public boolean ThrewRock = false;
+    //public boolean ThrewRock = false;
     public boolean MadeWave = false;
-
     public Direction playerDirection;
 
     public int moveCount = 0;
     public int updateCount = 0;
-    public int ThrowCounter = 0;
     public int WaveCounter = 0;
 
     public Point PlayerPosition;
@@ -24,15 +22,12 @@ public class Game {
     private Point newRockPosition;
     public Point IsThereARockHere;
 
-
     public java.util.List<Point> Shell;
-
 
     public Point TopOfShell;
     public Point LeftOfShell;
     public Point RightOfShell;
     public Point BottomOfShell;
-
 
     public Game(Board pBoard) {
         Board = pBoard;
@@ -43,7 +38,6 @@ public class Game {
         Shell.add(new Point());
         Shell.add(new Point());
         Shell.add(new Point());
-
     }
 
     public enum Direction {
@@ -54,27 +48,23 @@ public class Game {
     }
 
     public void Update() {
-
-
-        if  (updateCount == 0) {
-            //ThrowRock();
-            for (Map.Entry<Point, BoardPiece> position : Board.BoardGrid.entrySet()) {
-                position.getValue().Update(Board);
+        updateCount++;
+        if  (updateCount % 2 == 0) {
+            ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
+            for (BoardPiece point : Board.BoardGrid.values()) {
+                test.add(point);
+            }
+            for (BoardPiece point : test) {
+                point.Update(Board);
             }
             RockWave();
-            updateCount = 0;
-        } else {
-            updateCount = updateCount + 1;
         }
-
-        WaveCounter = WaveCounter + 1;
-
+        WaveCounter++;
     }
 
     public void Move (Direction pDirection) {
         Point newPosition = ConvertMoveToCoordinates(pDirection);
         BoardPiece piece = Board.GetState(newPosition);
-        piece.Update(new Board());
         if (mGameOver) {
             return;
         }
@@ -120,7 +110,6 @@ public class Game {
     }
 
     public void RockWave(){
-
 //        if (!MadeWave){
 //            Shell.set(0, null);
 //            Shell.set(1, null);
@@ -129,7 +118,6 @@ public class Game {
 //        }
         if (WaveCounter > 10){
             MadeWave = false;
-
         }
 
         if (MadeWave){
@@ -170,14 +158,7 @@ public class Game {
 
     }
 
-    public void RockInFront(){
-        BoardPiece isThere = Board.GetState(IsThereARockHere);
-        if (! (isThere instanceof Static_Rock)){
-            ThrewRock = false;
-        }
-    }
-
-    public void PositionRock(){
+    public void StartThrowRock(){
         Point putRockHere = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
         this.Board.BoardGrid.put(putRockHere, new Flying_Rock(putRockHere, playerDirection));
     }

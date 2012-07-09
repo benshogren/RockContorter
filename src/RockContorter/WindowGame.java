@@ -45,15 +45,12 @@ public class WindowGame implements ActionListener, KeyListener {
         gameTextAre.addKeyListener(this);
         titlePanel.add(gameTextAre);
 
-
         scorePanel = new JPanel();
         scorePanel.setLayout(null);
         scorePanel.setLocation(10, 40);
         scorePanel.setSize(260, 30);
         scorePanel.addKeyListener(this);
         totalGUI.add(scorePanel);
-
-
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(null);
@@ -62,28 +59,6 @@ public class WindowGame implements ActionListener, KeyListener {
         buttonPanel.addKeyListener(this);
         totalGUI.add(buttonPanel);
 
-//
-//        leftButton = new JButton("Left");
-//        leftButton.setLocation(30,80);
-//        leftButton.setSize(70, 70);
-//        leftButton.addActionListener(this);
-//        leftButton.addKeyListener(this);
-//        buttonPanel.add(leftButton);
-//
-//        downButton = new JButton("Down");
-//        downButton.setLocation(110, 80);
-//        downButton.setSize(70, 70);
-//        downButton.addActionListener(this);
-//        downButton.addKeyListener(this);
-//        buttonPanel.add(downButton);
-//
-//        rightButton = new JButton("Right");
-//        rightButton.setLocation(190, 80);
-//        rightButton.setSize(70, 70);
-//        rightButton.addActionListener(this);
-//        rightButton.addKeyListener(this);
-//        buttonPanel.add(rightButton);
-//
 //        upButton = new JButton("Up");
 //        upButton.setLocation(110, 0);
 //        upButton.setSize(70, 70);
@@ -106,10 +81,7 @@ public class WindowGame implements ActionListener, KeyListener {
             game.Move(Game.Direction.DOWN);
         } else if (e.getSource() == clock ) {
             WindowGame.game.Update();
-            updateUI();
-            return;
         }
-        WindowGame.game.Update();
         updateUI();
     }
 
@@ -127,6 +99,7 @@ public class WindowGame implements ActionListener, KeyListener {
 
         demo.clock = new Timer(100, demo);
         demo.clock.start();
+
     }
 
     private void updateUI() {
@@ -174,10 +147,9 @@ public class WindowGame implements ActionListener, KeyListener {
                 game.RockPlace();
                 break;
             case KeyEvent.VK_R:
-                game.ThrowCounter = 0;
-                game.PositionRock();
-                game.ThrewRock = true;
-                game.RockInFront();
+                game.StartThrowRock();
+                //game.ThrewRock = true;
+                //game.RockInFront();
                 break;
             case KeyEvent.VK_F:
                 game.Leap();
@@ -190,7 +162,6 @@ public class WindowGame implements ActionListener, KeyListener {
                 break;
             case KeyEvent. VK_Y:
                 game.WaveCounter = 0;
-
                 game.ShellClear();
                 game.MadeWave = true;
                 break;

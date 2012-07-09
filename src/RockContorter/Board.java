@@ -76,7 +76,7 @@ public class Board {
     }
 
     public void RockAsBoardState(Point position) {
-        BoardGrid.put(position, new Static_Rock());
+        BoardGrid.put(position, new Dying_Rock(position));
     }
 
     public void BackToEmpty(Point position) {
