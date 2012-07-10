@@ -18,9 +18,6 @@ public class Game {
     public int moveCount = 0;
     public int updateCount = 0;
 
-
-    public Point IsThereARockHere;
-
     public Point TopOfShell;
     public Point LeftOfShell;
     public Point RightOfShell;
@@ -73,6 +70,13 @@ public class Game {
         return RockShield;
     }
 
+    public void ThrowARock(){
+        Point putRockHere = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
+        if ((Board.GetState(putRockHere) instanceof Static_Rock)|| (Board.GetState(putRockHere) instanceof Dying_Rock)){
+            this.Board.BoardGrid.put(putRockHere, new Flying_Rock(putRockHere, playerDirection));
+        }
+    }
+
     public void RockShell(){
         TopOfShell = new Point(PlayerPosition.x, PlayerPosition.y - 1);
         Board.RockAsBoardState(TopOfShell);
@@ -98,19 +102,12 @@ public class Game {
            MadeWave = false;
     }
 
-    public void ThrowARock(){
-        Point putRockHere = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
-        this.Board.BoardGrid.put(putRockHere, new Flying_Rock(putRockHere, playerDirection));
-    }
-
     public void ChopWall(){
         Point chopWallSection1 = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
         Point chopWallSection2 = GetPointFromStartAndDirection(chopWallSection1, playerDirection);
         Board.RockAsBoardState(chopWallSection1);
         Board.RockAsBoardState(chopWallSection2);
         Board.RockAsBoardState(GetPointFromStartAndDirection(chopWallSection2, playerDirection));
-
-        //later make so it hurts enemies when hits, but not forever: null the points in update
     }
 
     public Point Leap(){
