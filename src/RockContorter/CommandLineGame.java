@@ -63,18 +63,6 @@ public class CommandLineGame {
                 character = ">";
 //            } else if(position.getKey().equals(game.PlayerPosition)){
 //                character = "^";
-
-//            } else if(position.getKey().equals(game.ThrowRock)){
-//                character = "O";
-            } else if(position.getKey().equals(game.TopOfShell)){
-                character = "O";
-            } else if(position.getKey().equals(game.RightOfShell)){
-                character = "O";
-            } else if(position.getKey().equals(game.LeftOfShell)){
-                character = "O";
-            } else if(position.getKey().equals(game.BottomOfShell)){
-                character = "O";
-
             } else if (position.getValue() instanceof Wall) {
                 character = "#";
             } else if (position.getValue() instanceof Flying_Rock) {

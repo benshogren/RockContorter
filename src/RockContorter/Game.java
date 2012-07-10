@@ -8,21 +8,17 @@ public class Game {
     public Board Board;
     public boolean mGameOver;
     public boolean Victory = false;
-    //public boolean ThrewRock = false;
     public boolean MadeWave = false;
     public Direction playerDirection;
 
     public int moveCount = 0;
     public int updateCount = 0;
-    public int WaveCounter = 0;
 
     public Point PlayerPosition;
     public Point LeapPosition;
     public Point RockShield;
     private Point newRockPosition;
     public Point IsThereARockHere;
-
-    public java.util.List<Point> Shell;
 
     public Point TopOfShell;
     public Point LeftOfShell;
@@ -32,12 +28,6 @@ public class Game {
     public Game(Board pBoard) {
         Board = pBoard;
         PlayerPosition = new Point(7, 5);
-
-        Shell = new ArrayList<Point>();
-        Shell.add(new Point());
-        Shell.add(new Point());
-        Shell.add(new Point());
-        Shell.add(new Point());
     }
 
     public enum Direction {
@@ -59,7 +49,6 @@ public class Game {
             }
             RockWave();
         }
-        WaveCounter++;
     }
 
     public void Move (Direction pDirection) {
@@ -85,77 +74,28 @@ public class Game {
     }
 
     public void RockShell(){
-        Shell.set(0, new Point(PlayerPosition.x, PlayerPosition.y - 1));
-        TopOfShell = Shell.get(0);
-        Board.RockAsBoardState(Shell.get(0));
+        TopOfShell = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+        Board.RockAsBoardState(TopOfShell);
 
-        Shell.set(1, new Point(PlayerPosition.x - 1, PlayerPosition.y));
-        LeftOfShell = Shell.get(1);
-        Board.RockAsBoardState(Shell.get(1));
+        LeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        Board.RockAsBoardState(LeftOfShell);
 
-        Shell.set(2, new Point(PlayerPosition.x + 1, PlayerPosition.y));
-        RightOfShell = Shell.get(2);
-        Board.RockAsBoardState(Shell.get(2));
+        RightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        Board.RockAsBoardState(RightOfShell);
 
-        Shell.set(3, new Point(PlayerPosition.x, PlayerPosition.y + 1));
-        BottomOfShell = Shell.get(3);
-        Board.RockAsBoardState(Shell.get(3));
-    }
+        BottomOfShell =  new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        Board.RockAsBoardState(BottomOfShell);
 
-    public void ShellClear(){
-        Board.BackToEmpty(TopOfShell);
-        Board.BackToEmpty(LeftOfShell);
-        Board.BackToEmpty(RightOfShell);
-        Board.BackToEmpty(BottomOfShell);
     }
 
     public void RockWave(){
-//        if (!MadeWave){
-//            Shell.set(0, null);
-//            Shell.set(1, null);
-//            Shell.set(2, null);
-//            Shell.set(3, null);
-//        }
-        if (WaveCounter > 10){
-            MadeWave = false;
-        }
-
         if (MadeWave){
-            if (Shell.get(0) != null){
-                Shell.set(0, new Point(Shell.get(0).x, Shell.get(0).y - 1));
-            }
-            if (Shell.get(1) != null){
-                Shell.set(1, new Point(Shell.get(1).x - 1, Shell.get(1).y));
-            }
-            if (Shell.get(2) != null) {
-                Shell.set(2, new Point(Shell.get(2).x + 1, Shell.get(2).y));
-            }
-            if (Shell.get(3) != null){
-                Shell.set(3, new Point(Shell.get(3).x, Shell.get(3).y + 1));
-            }
-            if (Board.WallInTheWay(Shell.get(0)) || Board.RockInTheWay(Shell.get(0))) {
-                Shell.set(0, null);
-            } else {
-                TopOfShell = Shell.get(0);
-            }
-            if (Board.WallInTheWay(Shell.get(1)) || Board.RockInTheWay(Shell.get(1))) {
-                Shell.set(1, null);
-            } else {
-                LeftOfShell = Shell.get(1);
-            }
-            if (Board.WallInTheWay(Shell.get(2)) || Board.RockInTheWay(Shell.get(2))) {
-                Shell.set(2, null);
-            } else {
-                RightOfShell = Shell.get(2);
-            }
-            if (Board.WallInTheWay(Shell.get(3)) || Board.RockInTheWay(Shell.get(3))) {
-                Shell.set(3, null);
-            } else {
-                BottomOfShell = Shell.get(3);
-            }
-
+            Board.BoardGrid.put(TopOfShell, new Flying_Rock(TopOfShell, Direction.UP));
+            Board.BoardGrid.put(LeftOfShell, new Flying_Rock(LeftOfShell, Direction.LEFT));
+            Board.BoardGrid.put(RightOfShell, new Flying_Rock(RightOfShell, Direction.RIGHT));
+            Board.BoardGrid.put(BottomOfShell, new Flying_Rock(BottomOfShell, Direction.DOWN));
          }
-
+           MadeWave = false;
     }
 
     public void StartThrowRock(){
