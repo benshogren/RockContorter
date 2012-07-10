@@ -22,6 +22,13 @@ public class Game {
     public Point LeftOfShell;
     public Point RightOfShell;
     public Point BottomOfShell;
+    public Point TopRightOfShell;
+    public Point TopLeftOfShell;
+    public Point BottomRightOfShell;
+    public Point BottomLeftOfShell;
+
+
+
 
     public Game(Board pBoard) {
         Board = pBoard;
@@ -32,7 +39,11 @@ public class Game {
         LEFT,
         RIGHT,
         UP,
-        DOWN
+        DOWN,
+        UPLEFT,
+        UPRIGHT,
+        DOWNRIGHT,
+        DOWNLEFT
     }
 
     public void Update() {
@@ -72,7 +83,7 @@ public class Game {
 
     public void ThrowARock(){
         Point putRockHere = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
-        if ((Board.GetState(putRockHere) instanceof Static_Rock)|| (Board.GetState(putRockHere) instanceof Dying_Rock)){
+        if ((Board.GetState(putRockHere) instanceof Static_Rock) || (Board.GetState(putRockHere) instanceof Dying_Rock)){
             this.Board.BoardGrid.put(putRockHere, new Flying_Rock(putRockHere, playerDirection));
         }
     }
@@ -89,6 +100,18 @@ public class Game {
 
         BottomOfShell =  new Point(PlayerPosition.x, PlayerPosition.y + 1);
         Board.RockAsBoardState(BottomOfShell);
+
+        TopLeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y - 1);
+        Board.RockAsBoardState(TopLeftOfShell);
+
+        TopRightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y - 1);
+        Board.RockAsBoardState(TopRightOfShell);
+
+        BottomLeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y + 1);
+        Board.RockAsBoardState(BottomLeftOfShell);
+
+        BottomRightOfShell =  new Point(PlayerPosition.x + 1, PlayerPosition.y + 1);
+        Board.RockAsBoardState(BottomRightOfShell);
     }
 
     public void RockWave(){
@@ -97,6 +120,10 @@ public class Game {
             Board.BoardGrid.put(LeftOfShell, new Flying_Rock(LeftOfShell, Direction.LEFT));
             Board.BoardGrid.put(RightOfShell, new Flying_Rock(RightOfShell, Direction.RIGHT));
             Board.BoardGrid.put(BottomOfShell, new Flying_Rock(BottomOfShell, Direction.DOWN));
+            Board.BoardGrid.put(TopLeftOfShell, new Flying_Rock(TopLeftOfShell, Direction.UPLEFT));
+            Board.BoardGrid.put(TopRightOfShell, new Flying_Rock(TopRightOfShell, Direction.UPRIGHT));
+            Board.BoardGrid.put(BottomLeftOfShell, new Flying_Rock(BottomLeftOfShell, Direction.DOWNLEFT));
+            Board.BoardGrid.put(BottomRightOfShell, new Flying_Rock(BottomRightOfShell, Direction.DOWNRIGHT));
             ShellInPlace = false;
          }
            MadeWave = false;
@@ -131,7 +158,16 @@ public class Game {
             nextPoint = new Point(startingPoint.x + NumberOfSpacesToMove, startingPoint.y);
         } else if (direction == Direction.LEFT) {
             nextPoint = new Point(startingPoint.x - NumberOfSpacesToMove, startingPoint.y);
+        } else if (direction == Direction.UPLEFT) {
+            nextPoint = new Point(startingPoint.x - 1, startingPoint.y - 1);
+        } else if (direction == Direction.UPRIGHT) {
+            nextPoint = new Point(startingPoint.x + 1, startingPoint.y - 1);
+        } else if (direction == Direction.DOWNLEFT) {
+            nextPoint = new Point(startingPoint.x - 1, startingPoint.y + 1);
+        } else if (direction == Direction.DOWNRIGHT) {
+            nextPoint = new Point(startingPoint.x + 1, startingPoint.y + 1);
         }
+
         return nextPoint;
     }
 
