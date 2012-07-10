@@ -147,7 +147,7 @@ public class WindowGame implements ActionListener, KeyListener {
                 game.RockPlace();
                 break;
             case KeyEvent.VK_R:
-                game.StartThrowRock();
+                game.ThrowARock();
 
                 break;
             case KeyEvent.VK_F:
@@ -158,6 +158,8 @@ public class WindowGame implements ActionListener, KeyListener {
                 break;
             case KeyEvent. VK_T:
                 game.RockShell();
+                game.ShellInPlace = true;
+
                 break;
             case KeyEvent. VK_Y:
                 game.MadeWave = true;

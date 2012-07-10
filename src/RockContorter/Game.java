@@ -6,18 +6,19 @@ import java.util.Map;
 
 public class Game {
     public Board Board;
+
     public boolean mGameOver;
     public boolean Victory = false;
     public boolean MadeWave = false;
+    public boolean ShellInPlace = false;
+
+    public Point PlayerPosition;
     public Direction playerDirection;
 
     public int moveCount = 0;
     public int updateCount = 0;
 
-    public Point PlayerPosition;
-    public Point LeapPosition;
-    public Point RockShield;
-    private Point newRockPosition;
+
     public Point IsThereARockHere;
 
     public Point TopOfShell;
@@ -59,7 +60,7 @@ public class Game {
         }
         playerDirection = pDirection;
 
-        if ((piece instanceof Wall)||(piece instanceof Static_Rock) || (newPosition == newRockPosition)) {
+        if ((piece instanceof Wall)||(piece instanceof Static_Rock) || (piece instanceof Dying_Rock)) {
             // dont move him
         } else {
             PlayerPosition = newPosition;
@@ -67,8 +68,7 @@ public class Game {
     }
 
     public Point RockPlace(){
-        newRockPosition = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
-        RockShield = newRockPosition;
+        Point RockShield = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
         Board.RockAsBoardState(RockShield);
         return RockShield;
     }
@@ -85,20 +85,20 @@ public class Game {
 
         BottomOfShell =  new Point(PlayerPosition.x, PlayerPosition.y + 1);
         Board.RockAsBoardState(BottomOfShell);
-
     }
 
     public void RockWave(){
-        if (MadeWave){
+        if (MadeWave && ShellInPlace){
             Board.BoardGrid.put(TopOfShell, new Flying_Rock(TopOfShell, Direction.UP));
             Board.BoardGrid.put(LeftOfShell, new Flying_Rock(LeftOfShell, Direction.LEFT));
             Board.BoardGrid.put(RightOfShell, new Flying_Rock(RightOfShell, Direction.RIGHT));
             Board.BoardGrid.put(BottomOfShell, new Flying_Rock(BottomOfShell, Direction.DOWN));
+            ShellInPlace = false;
          }
            MadeWave = false;
     }
 
-    public void StartThrowRock(){
+    public void ThrowARock(){
         Point putRockHere = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
         this.Board.BoardGrid.put(putRockHere, new Flying_Rock(putRockHere, playerDirection));
     }
@@ -115,7 +115,7 @@ public class Game {
 
     public Point Leap(){
         for (int i = 3; i > 0; i--) {
-            LeapPosition = GetPointFromStartAndDirection(PlayerPosition, playerDirection, i);
+            Point LeapPosition = GetPointFromStartAndDirection(PlayerPosition, playerDirection, i);
             if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
                 PlayerPosition = LeapPosition;
                 return PlayerPosition;
