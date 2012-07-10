@@ -11,6 +11,7 @@ public class Game {
     public boolean Victory = false;
     public boolean MadeWave = false;
     public boolean ShellInPlace = false;
+//    public boolean RockIsHeld = false;
 
     public Point PlayerPosition;
     public Direction playerDirection;
@@ -54,7 +55,7 @@ public class Game {
                 test.add(point);
             }
             for (BoardPiece point : test) {
-                point.Update(Board);
+                point.Update(Board, PlayerPosition);
             }
             RockWave();
         }
@@ -146,6 +147,23 @@ public class Game {
             }
         }
         return PlayerPosition;
+    }
+
+    public static void IsPlayerHoldingRock(Point RockPoint, Point PlayerPoint){
+        boolean RockIsHeld = false;
+        if (RockPoint == new Point(PlayerPoint.x, PlayerPoint.y + 1)){
+            RockIsHeld = true;
+            return;
+        } else if (RockPoint == new Point(PlayerPoint.x, PlayerPoint.y - 1)){
+            RockIsHeld = true;
+            return;
+        } else if (RockPoint == new Point(PlayerPoint.x + 1, PlayerPoint.y)){
+            RockIsHeld = true;
+            return;
+        } else if (RockPoint == new Point(PlayerPoint.x - 1, PlayerPoint.y)){
+            RockIsHeld = true;
+            return;
+        }
     }
 
     public static Point GetPointFromStartAndDirection(Point startingPoint, Direction direction, int NumberOfSpacesToMove) {
