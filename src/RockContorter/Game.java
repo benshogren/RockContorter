@@ -33,7 +33,9 @@ public class Game {
 
     public Game(Board pBoard) {
         Board = pBoard;
-        PlayerPosition = new Point(7, 5);
+        PlayerPosition = new Point(10, 13);
+        playerDirection = Direction.UP;
+        MoveMonsters();
     }
 
     public enum Direction {
@@ -48,6 +50,7 @@ public class Game {
     }
 
     public void Update() {
+
         updateCount++;
         if  (updateCount % 2 == 0) {
             ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
@@ -59,6 +62,12 @@ public class Game {
             }
             RockWave();
         }
+    }
+
+    public void MoveMonsters(){
+        Board.BoardGrid.put(new Point(5,8), new Monsters(new Point(5,5)));
+        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
+        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
     }
 
     public void Move (Direction pDirection) {
@@ -149,22 +158,6 @@ public class Game {
         return PlayerPosition;
     }
 
-    public static void IsPlayerHoldingRock(Point RockPoint, Point PlayerPoint){
-        boolean RockIsHeld = false;
-        if (RockPoint == new Point(PlayerPoint.x, PlayerPoint.y + 1)){
-            RockIsHeld = true;
-            return;
-        } else if (RockPoint == new Point(PlayerPoint.x, PlayerPoint.y - 1)){
-            RockIsHeld = true;
-            return;
-        } else if (RockPoint == new Point(PlayerPoint.x + 1, PlayerPoint.y)){
-            RockIsHeld = true;
-            return;
-        } else if (RockPoint == new Point(PlayerPoint.x - 1, PlayerPoint.y)){
-            RockIsHeld = true;
-            return;
-        }
-    }
 
     public static Point GetPointFromStartAndDirection(Point startingPoint, Direction direction, int NumberOfSpacesToMove) {
         Point nextPoint = startingPoint;

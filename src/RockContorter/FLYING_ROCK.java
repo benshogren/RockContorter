@@ -4,16 +4,24 @@ import java.awt.*;
 
 public class Flying_Rock implements BoardPiece {
 
-    Game.Move direction;
-    Point p;
+    Game.Direction direction;
+    Point point;
 
-    public Flying_Rock(Point p, Game.Move directionToFly) {
-        this.p = p;
+    public Flying_Rock(Point point, Game.Direction directionToFly) {
+        this.point = point;
         this.direction = directionToFly;
     }
 
     @Override
-    public void Update(Board board) {
+    public void Update(Board board, Point PlayerPosition) {
+        board.BoardGrid.put(point, new Empty());
+        Point nextPoint = Game.GetPointFromStartAndDirection(point, direction);
 
+        if (board.RockInTheWay(nextPoint) || board.WallInTheWay(nextPoint)) {
+            return;
+        }
+
+        point = nextPoint;
+        board.BoardGrid.put(point, this);
     }
 }

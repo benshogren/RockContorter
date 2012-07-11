@@ -128,19 +128,15 @@ public class WindowGame implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_UP:
-            case KeyEvent.VK_W:
                 game.Move(Game.Direction.UP);
                 break;
             case KeyEvent.VK_DOWN:
-            case KeyEvent.VK_S:
                 game.Move(Game.Direction.DOWN);
                 break;
             case KeyEvent.VK_RIGHT:
-            case KeyEvent.VK_D:
                 game.Move(Game.Direction.RIGHT);
                 break;
             case KeyEvent.VK_LEFT:
-            case KeyEvent.VK_A:
                 game.Move(Game.Direction.LEFT);
                 break;
             case KeyEvent.VK_E:
@@ -148,12 +144,11 @@ public class WindowGame implements ActionListener, KeyListener {
                 break;
             case KeyEvent.VK_R:
                 game.ThrowARock();
-
                 break;
-            case KeyEvent.VK_F:
+            case KeyEvent.VK_A:
                 game.Leap();
                 break;
-            case KeyEvent.VK_G:
+            case KeyEvent.VK_D:
                 game.ChopWall();
                 break;
             case KeyEvent. VK_T:

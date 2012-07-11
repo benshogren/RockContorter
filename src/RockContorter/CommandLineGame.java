@@ -73,6 +73,8 @@ public class CommandLineGame {
                 character = " ";
             } else if (position.getValue() instanceof  Dying_Rock) {
                 character = "O";
+            } else if (position.getValue() instanceof  Monsters) {
+                character = "M";
             } else {
                 character = " ";
             }
