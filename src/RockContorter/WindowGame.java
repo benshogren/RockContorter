@@ -80,7 +80,7 @@ public class WindowGame implements ActionListener, KeyListener {
         } else if(e.getSource() == downButton) {
             game.Move(Game.Direction.DOWN);
         } else if (e.getSource() == clock ) {
-            WindowGame.game.Update();
+            game.Update();
         }
         updateUI();
     }

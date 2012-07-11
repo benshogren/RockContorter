@@ -19,16 +19,6 @@ public class Game {
     public int moveCount = 0;
     public int updateCount = 0;
 
-    public Point TopOfShell;
-    public Point LeftOfShell;
-    public Point RightOfShell;
-    public Point BottomOfShell;
-    public Point TopRightOfShell;
-    public Point TopLeftOfShell;
-    public Point BottomRightOfShell;
-    public Point BottomLeftOfShell;
-
-
 
 
     public Game(Board pBoard) {
@@ -50,7 +40,6 @@ public class Game {
     }
 
     public void Update() {
-
         updateCount++;
         if  (updateCount % 2 == 0) {
             ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
@@ -66,8 +55,8 @@ public class Game {
 
     public void MoveMonsters(){
         Board.BoardGrid.put(new Point(5,8), new Monsters(new Point(5,5)));
-        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
-        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
+//        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
+//        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
     }
 
     public void Move (Direction pDirection) {
@@ -99,41 +88,26 @@ public class Game {
     }
 
     public void RockShell(){
-        TopOfShell = new Point(PlayerPosition.x, PlayerPosition.y - 1);
-        Board.RockAsBoardState(TopOfShell);
-
-        LeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y);
-        Board.RockAsBoardState(LeftOfShell);
-
-        RightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y);
-        Board.RockAsBoardState(RightOfShell);
-
-        BottomOfShell =  new Point(PlayerPosition.x, PlayerPosition.y + 1);
-        Board.RockAsBoardState(BottomOfShell);
-
-        TopLeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y - 1);
-        Board.RockAsBoardState(TopLeftOfShell);
-
-        TopRightOfShell = new Point(PlayerPosition.x + 1, PlayerPosition.y - 1);
-        Board.RockAsBoardState(TopRightOfShell);
-
-        BottomLeftOfShell = new Point(PlayerPosition.x - 1, PlayerPosition.y + 1);
-        Board.RockAsBoardState(BottomLeftOfShell);
-
-        BottomRightOfShell =  new Point(PlayerPosition.x + 1, PlayerPosition.y + 1);
-        Board.RockAsBoardState(BottomRightOfShell);
+        Board.RockAsBoardState(new Point(PlayerPosition.x, PlayerPosition.y - 1));
+        Board.RockAsBoardState(new Point(PlayerPosition.x - 1, PlayerPosition.y));
+        Board.RockAsBoardState(new Point(PlayerPosition.x + 1, PlayerPosition.y));
+        Board.RockAsBoardState(new Point(PlayerPosition.x, PlayerPosition.y + 1));
+        Board.RockAsBoardState(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1));
+        Board.RockAsBoardState(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1));
+        Board.RockAsBoardState(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1));
+        Board.RockAsBoardState(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1));
     }
 
     public void RockWave(){
         if (MadeWave && ShellInPlace){
-            Board.BoardGrid.put(TopOfShell, new Flying_Rock(TopOfShell, Direction.UP));
-            Board.BoardGrid.put(LeftOfShell, new Flying_Rock(LeftOfShell, Direction.LEFT));
-            Board.BoardGrid.put(RightOfShell, new Flying_Rock(RightOfShell, Direction.RIGHT));
-            Board.BoardGrid.put(BottomOfShell, new Flying_Rock(BottomOfShell, Direction.DOWN));
-            Board.BoardGrid.put(TopLeftOfShell, new Flying_Rock(TopLeftOfShell, Direction.UPLEFT));
-            Board.BoardGrid.put(TopRightOfShell, new Flying_Rock(TopRightOfShell, Direction.UPRIGHT));
-            Board.BoardGrid.put(BottomLeftOfShell, new Flying_Rock(BottomLeftOfShell, Direction.DOWNLEFT));
-            Board.BoardGrid.put(BottomRightOfShell, new Flying_Rock(BottomRightOfShell, Direction.DOWNRIGHT));
+            Board.BoardGrid.put(new Point(PlayerPosition.x, PlayerPosition.y - 1), new Flying_Rock(new Point(PlayerPosition.x, PlayerPosition.y - 1), Direction.UP));
+            Board.BoardGrid.put(new Point(PlayerPosition.x - 1, PlayerPosition.y), new Flying_Rock(new Point(PlayerPosition.x - 1, PlayerPosition.y), Direction.LEFT));
+            Board.BoardGrid.put(new Point(PlayerPosition.x + 1, PlayerPosition.y), new Flying_Rock(new Point(PlayerPosition.x + 1, PlayerPosition.y), Direction.RIGHT));
+            Board.BoardGrid.put(new Point(PlayerPosition.x, PlayerPosition.y + 1), new Flying_Rock(new Point(PlayerPosition.x, PlayerPosition.y + 1), Direction.DOWN));
+            Board.BoardGrid.put(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1), new Flying_Rock(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1), Direction.UPLEFT));
+            Board.BoardGrid.put(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1), new Flying_Rock(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1), Direction.UPRIGHT));
+            Board.BoardGrid.put(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1), new Flying_Rock(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1), Direction.DOWNLEFT));
+            Board.BoardGrid.put(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1), new Flying_Rock(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1), Direction.DOWNRIGHT));
             ShellInPlace = false;
          }
            MadeWave = false;

@@ -7,6 +7,7 @@ import java.util.*;
 public class Monsters implements BoardPiece{
 
 Point here;
+int updateCount = 0;
 
     public Monsters(Point here) {
         this.here = here;
@@ -15,22 +16,29 @@ Point here;
     @Override
     public void Update(Board board, Point PlayerPosition) {
 
-        Point moveUp = new Point(here.x, here.y - 1);
-        if (here.y > PlayerPosition.y && !board.WallInTheWay(moveUp) && !board.RockInTheWay(moveUp)){
-            here = moveUp;
-        }
-        Point moveDown = new Point(here.x, here.y + 1);
-        if (here.y < PlayerPosition.y && !board.WallInTheWay(moveDown) && !board.RockInTheWay(moveDown)){
-            here = moveDown;
-        }
-        Point moveLeft = new Point(here.x - 1, here.y);
-        if (here.x > PlayerPosition.x && !board.WallInTheWay(moveLeft) && !board.RockInTheWay(moveLeft)){
-            here = moveLeft;
-        }
-        Point moveRight = new Point(here.x + 1, here.y);
-        if (here.x < PlayerPosition.x && !board.WallInTheWay(moveRight) && !board.RockInTheWay(moveRight)){
-            here = moveRight;
-        } else {
+        updateCount++;
+        if  (updateCount % 2 == 0) {
+            Point moveUp = new Point(here.x, here.y - 1);
+            if (here.y > PlayerPosition.y && !board.WallInTheWay(moveUp) && !board.RockInTheWay(moveUp)){
+                moveToNewPosition(board, moveUp);
+                return;
+            }
+            Point moveDown = new Point(here.x, here.y + 1);
+            if (here.y < PlayerPosition.y && !board.WallInTheWay(moveDown) && !board.RockInTheWay(moveDown)){
+                moveToNewPosition(board, moveDown);
+                return;
+            }
+            Point moveLeft = new Point(here.x - 1, here.y);
+            if (here.x > PlayerPosition.x && !board.WallInTheWay(moveLeft) && !board.RockInTheWay(moveLeft)){
+                moveToNewPosition(board, moveLeft);
+                return;
+            }
+            Point moveRight = new Point(here.x + 1, here.y);
+            if (here.x < PlayerPosition.x && !board.WallInTheWay(moveRight) && !board.RockInTheWay(moveRight)){
+                moveToNewPosition(board, moveRight);
+                return;
+            }
+
 //            // back-up random moves for stuck monsters
             java.util.List<Point> moves = new ArrayList<Point>();
             moves.add(new Point(here.x - 1, here.y));
@@ -45,11 +53,15 @@ Point here;
                 }
             }
             if (validMoves.size() > 0) {
-                validMoves.get((int) (Math.random()*validMoves.size()));
+                here = validMoves.get((int) (Math.random()*validMoves.size()));
             }
         }
+    }
 
-
+    private void moveToNewPosition(Board board, Point moveLeft) {
+        board.BoardGrid.put(here, new Empty());
+        here = moveLeft;
+        board.BoardGrid.put(here, this);
     }
 
 
