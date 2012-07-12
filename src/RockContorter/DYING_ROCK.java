@@ -14,17 +14,15 @@ public class Dying_Rock implements BoardPiece {
 
     @Override
     public void Update(Board board, Point PlayerPosition) {
-
-        if (here == new Point(PlayerPosition.x, PlayerPosition.y + 1)){
+        if (here.equals(new Point(PlayerPosition.x, PlayerPosition.y + 1))){
             return;
-        } else if (here == new Point(PlayerPosition.x, PlayerPosition.y - 1)){
+        } else if (here.equals(new Point(PlayerPosition.x, PlayerPosition.y - 1))){
             return;
-        } else if (here == new Point(PlayerPosition.x + 1, PlayerPosition.y)) {
+        } else if (here.equals(new Point(PlayerPosition.x + 1, PlayerPosition.y))) {
             return;
-        } else if (here == new Point(PlayerPosition.x - 1, PlayerPosition.y)){
+        } else if (here.equals(new Point(PlayerPosition.x - 1, PlayerPosition.y))){
             return;
         } else {
-
             lifeSpan = lifeSpan + 1;
 
             if (lifeSpan == 15){
