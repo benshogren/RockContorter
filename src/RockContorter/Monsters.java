@@ -17,7 +17,8 @@ int updateCount = 0;
     public void Update(Board board, Point PlayerPosition) {
 
         updateCount++;
-        if  (updateCount % 2 == 0) {
+        if  (updateCount == 4) {
+            updateCount = 0;
             Point moveUp = new Point(here.x, here.y - 1);
             if (here.y > PlayerPosition.y && !board.WallInTheWay(moveUp) && !board.StaticRockInTheWay(moveUp) && !board.DisappearingRockInTheWay(moveUp)){
                 moveToNewPosition(board, moveUp);

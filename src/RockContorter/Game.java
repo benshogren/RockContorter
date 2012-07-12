@@ -11,7 +11,6 @@ public class Game {
     public boolean Victory = false;
     public boolean MadeWave = false;
     public boolean ShellInPlace = false;
-//    public boolean RockIsHeld = false;
 
     public Point PlayerPosition;
     public Direction playerDirection;
@@ -23,7 +22,7 @@ public class Game {
 
     public Game(Board pBoard) {
         Board = pBoard;
-        PlayerPosition = new Point(10, 13);
+        PlayerPosition = new Point(10, 8);
         playerDirection = Direction.UP;
         MoveMonsters();
     }
@@ -41,7 +40,7 @@ public class Game {
 
     public void Update() {
         updateCount++;
-        if  (updateCount % 2 == 0) {
+//        if  (updateCount % 2 == 0) {
             ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
             for (BoardPiece point : Board.BoardGrid.values()) {
                 test.add(point);
@@ -50,11 +49,13 @@ public class Game {
                 point.Update(Board, PlayerPosition);
             }
             RockWave();
-        }
+//        }
     }
 
     public void MoveMonsters(){
-        Board.BoardGrid.put(new Point(5,5), new RangedMonsters(new Point(5,5)));
+        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
+        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
+
 //        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
 //        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
     }
