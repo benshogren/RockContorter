@@ -17,7 +17,7 @@ public class FlyingRock implements BoardPiece {
         board.BoardGrid.put(point, new Empty());
         Point nextPoint = Game.GetPointFromStartAndDirection(point, direction);
 
-        if (board.RockInTheWay(nextPoint) || board.WallInTheWay(nextPoint)) {
+        if (board.StaticRockInTheWay(nextPoint) || board.WallInTheWay(nextPoint)) {
             return;
         }
 

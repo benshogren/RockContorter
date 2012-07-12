@@ -19,22 +19,22 @@ int updateCount = 0;
         updateCount++;
         if  (updateCount % 2 == 0) {
             Point moveUp = new Point(here.x, here.y - 1);
-            if (here.y > PlayerPosition.y && !board.WallInTheWay(moveUp) && !board.RockInTheWay(moveUp)){
+            if (here.y > PlayerPosition.y && !board.WallInTheWay(moveUp) && !board.StaticRockInTheWay(moveUp) && !board.DisappearingRockInTheWay(moveUp)){
                 moveToNewPosition(board, moveUp);
                 return;
             }
             Point moveDown = new Point(here.x, here.y + 1);
-            if (here.y < PlayerPosition.y && !board.WallInTheWay(moveDown) && !board.RockInTheWay(moveDown)){
+            if (here.y < PlayerPosition.y && !board.WallInTheWay(moveDown) && !board.StaticRockInTheWay(moveDown) && !board.DisappearingRockInTheWay(moveDown)){
                 moveToNewPosition(board, moveDown);
                 return;
             }
             Point moveLeft = new Point(here.x - 1, here.y);
-            if (here.x > PlayerPosition.x && !board.WallInTheWay(moveLeft) && !board.RockInTheWay(moveLeft)){
+            if (here.x > PlayerPosition.x && !board.WallInTheWay(moveLeft) && !board.StaticRockInTheWay(moveLeft) && !board.DisappearingRockInTheWay(moveLeft)){
                 moveToNewPosition(board, moveLeft);
                 return;
             }
             Point moveRight = new Point(here.x + 1, here.y);
-            if (here.x < PlayerPosition.x && !board.WallInTheWay(moveRight) && !board.RockInTheWay(moveRight)){
+            if (here.x < PlayerPosition.x && !board.WallInTheWay(moveRight) && !board.StaticRockInTheWay(moveRight) && !board.DisappearingRockInTheWay(moveRight)){
                 moveToNewPosition(board, moveRight);
                 return;
             }
@@ -48,7 +48,7 @@ int updateCount = 0;
 
             java.util.List<Point> validMoves = new ArrayList<Point>();
             for (Point move : moves) {
-                if (!board.WallInTheWay(move)) {
+                if (!board.WallInTheWay(move) && !board.DisappearingRockInTheWay(move) && !board.StaticRockInTheWay(move)) {
                     validMoves.add(move);
                 }
             }

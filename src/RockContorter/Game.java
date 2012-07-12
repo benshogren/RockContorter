@@ -54,7 +54,7 @@ public class Game {
     }
 
     public void MoveMonsters(){
-        Board.BoardGrid.put(new Point(5,8), new Monsters(new Point(5,5)));
+        Board.BoardGrid.put(new Point(5,5), new RangedMonsters(new Point(5,5)));
 //        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
 //        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
     }
@@ -124,7 +124,7 @@ public class Game {
     public Point Leap(){
         for (int i = 3; i > 0; i--) {
             Point LeapPosition = GetPointFromStartAndDirection(PlayerPosition, playerDirection, i);
-            if (!Board.WallInTheWay(LeapPosition) && !Board.RockInTheWay(LeapPosition)){
+            if (!Board.WallInTheWay(LeapPosition) && !Board.StaticRockInTheWay(LeapPosition) && !Board.DisappearingRockInTheWay(LeapPosition)){
                 PlayerPosition = LeapPosition;
                 return PlayerPosition;
             }

@@ -75,6 +75,8 @@ public class CommandLineGame {
                 character = "O";
             } else if (position.getValue() instanceof  Monsters) {
                 character = "M";
+            } else if (position.getValue() instanceof  RangedMonsters) {
+                character = "R";
             } else {
                 character = " ";
             }
