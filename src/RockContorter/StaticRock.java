@@ -2,7 +2,7 @@ package RockContorter;
 
 import java.awt.*;
 
-public class Static_Rock implements BoardPiece {
+public class StaticRock implements BoardPiece {
     @Override
 
     public void Update(Board board, Point PlayerPosition) {

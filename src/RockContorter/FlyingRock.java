@@ -2,12 +2,12 @@ package RockContorter;
 
 import java.awt.*;
 
-public class Flying_Rock implements BoardPiece {
+public class FlyingRock implements BoardPiece {
 
     Game.Direction direction;
     Point point;
 
-    public Flying_Rock(Point point, Game.Direction directionToFly) {
+    public FlyingRock(Point point, Game.Direction directionToFly) {
         this.point = point;
         this.direction = directionToFly;
     }

@@ -65,13 +65,13 @@ public class CommandLineGame {
 //                character = "^";
             } else if (position.getValue() instanceof Wall) {
                 character = "#";
-            } else if (position.getValue() instanceof Flying_Rock) {
+            } else if (position.getValue() instanceof FlyingRock) {
                 character = "O";
-            } else if (position.getValue() instanceof  Static_Rock) {
+            } else if (position.getValue() instanceof  StaticRock) {
                 character = "O";
             } else if (position.getValue() instanceof  Empty) {
                 character = " ";
-            } else if (position.getValue() instanceof  Dying_Rock) {
+            } else if (position.getValue() instanceof  DisappearingRock) {
                 character = "O";
             } else if (position.getValue() instanceof  Monsters) {
                 character = "M";

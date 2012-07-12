@@ -55,7 +55,7 @@ public class Board {
                 piece = new Wall();
                 break;
             case 'O':
-                piece = new Static_Rock();
+                piece = new StaticRock();
                 break;
             default:
                 piece = new Empty();
@@ -69,7 +69,7 @@ public class Board {
     }
 
     public void RockAsBoardState(Point position) {
-        BoardGrid.put(position, new Dying_Rock(position));
+        BoardGrid.put(position, new DisappearingRock(position));
     }
 
     public void BackToEmpty(Point position) {
@@ -82,6 +82,6 @@ public class Board {
     }
 
     public boolean RockInTheWay(Point position) {
-        return (GetState(position) instanceof Static_Rock);
+        return (GetState(position) instanceof StaticRock);
     }
 }
