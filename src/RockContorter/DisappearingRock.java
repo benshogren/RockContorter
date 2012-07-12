@@ -26,6 +26,18 @@ public class DisappearingRock implements BoardPiece {
         } else if (here.equals(new Point(PlayerPosition.x - 1, PlayerPosition.y))){
             lifeSpan = 0;
             return;
+        } else if (here.equals(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1))){
+            lifeSpan = 0;
+            return;
+        } else if (here.equals(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1))){
+            lifeSpan = 0;
+            return;
+        } else if (here.equals(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1))) {
+            lifeSpan = 0;
+            return;
+        } else if (here.equals(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1))){
+            lifeSpan = 0;
+            return;
         } else {
             lifeSpan = lifeSpan + 1;
             if (lifeSpan == 15){
