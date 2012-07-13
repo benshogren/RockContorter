@@ -22,7 +22,7 @@ public class Game {
 
     public Game(Board pBoard) {
         Board = pBoard;
-        PlayerPosition = new Point(10, 8);
+        PlayerPosition = new Point(10, 16);
         playerDirection = Direction.UP;
         MoveMonsters();
     }
@@ -53,11 +53,11 @@ public class Game {
     }
 
     public void MoveMonsters(){
-        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
-        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
-
+//        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
+//        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
+//
 //        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
-//        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
+        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
     }
 
     public void Move (Direction pDirection) {
@@ -77,7 +77,10 @@ public class Game {
 
     public Point RockPlace(){
         Point RockShield = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
+        if (Board.GetState(RockShield) instanceof StaticRock || Board.GetState(RockShield) instanceof Wall){
+        } else {
         Board.RockAsBoardState(RockShield);
+        }
         return RockShield;
     }
 

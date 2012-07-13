@@ -14,6 +14,7 @@ public class DisappearingRock implements BoardPiece {
 
     @Override
     public void Update(Board board, Point PlayerPosition) {
+
         if (here.equals(new Point(PlayerPosition.x, PlayerPosition.y + 1))){
             lifeSpan = 0;
             return;
@@ -45,4 +46,5 @@ public class DisappearingRock implements BoardPiece {
             }
         }
     }
+
 }

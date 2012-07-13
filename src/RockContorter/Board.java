@@ -88,4 +88,5 @@ public class Board {
     public boolean DisappearingRockInTheWay(Point position) {
         return (GetState(position) instanceof DisappearingRock);
     }
+
 }
