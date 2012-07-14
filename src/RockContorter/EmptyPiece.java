@@ -2,7 +2,7 @@ package RockContorter;
 
 import java.awt.*;
 
-public class Empty implements BoardPiece {
+public class EmptyPiece implements BoardPiece {
 
     
     @Override

@@ -42,7 +42,7 @@ public class DisappearingRock implements BoardPiece {
         } else {
             lifeSpan = lifeSpan + 1;
             if (lifeSpan == 15){
-                board.BoardGrid.put(here, new Empty());
+                board.BoardGrid.put(here, new EmptyPiece());
             }
         }
     }

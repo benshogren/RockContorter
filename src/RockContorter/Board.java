@@ -52,7 +52,7 @@ public class Board {
                 piece = new StaticRock();
                 break;
             default:
-                piece = new Empty();
+                piece = new EmptyPiece();
                 break;
         }
         return piece;
@@ -75,7 +75,7 @@ public class Board {
     }
 
     public void BackToEmpty(Point position) {
-        BoardGrid.put(position, new Empty());
+        BoardGrid.put(position, new EmptyPiece());
     }
 
 
@@ -88,7 +88,7 @@ public class Board {
     }
 
     public boolean PointIsEmpty(Point position) {
-        return (GetState(position) instanceof Empty);
+        return (GetState(position) instanceof EmptyPiece);
     }
 
     public boolean DisappearingRockInTheWay(Point position) {

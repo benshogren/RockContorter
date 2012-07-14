@@ -29,7 +29,7 @@ public abstract class Enemies implements BoardPiece{
     }
 
     protected void moveToNewPosition(Board board, Point moveLeft) {
-        board.BoardGrid.put(here, new Empty());
+        board.BoardGrid.put(here, new EmptyPiece());
         here = moveLeft;
         board.BoardGrid.put(here, this);
     }

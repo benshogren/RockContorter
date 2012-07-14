@@ -14,7 +14,7 @@ public class FlyingRock implements BoardPiece {
 
     @Override
     public void Update(Board board, Point PlayerPosition) {
-        board.BoardGrid.put(point, new Empty());
+        board.BoardGrid.put(point, new EmptyPiece());
         Point nextPoint = Game.GetPointFromStartAndDirection(point, direction);
 
         if (board.StaticRockInTheWay(nextPoint) || board.WallInTheWay(nextPoint) || board.DisappearingRockInTheWay(nextPoint)) {

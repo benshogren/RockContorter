@@ -33,7 +33,7 @@ public class Board2Test extends TestCase {
                 testBoard.BoardGrid.get(new Point(1, 1)) instanceof StaticRock);
 
         //sut
-        testBoard.BoardGrid.put(new Point(1,1), new Empty());
+        testBoard.BoardGrid.put(new Point(1, 1), new EmptyPiece());
         for (int i = 0; i < 16; i++) {
             testBoard.Update();
         }

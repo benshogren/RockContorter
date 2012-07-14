@@ -69,7 +69,7 @@ public class CommandLineGame {
                 character = "O";
             } else if (position.getValue() instanceof  StaticRock) {
                 character = "O";
-            } else if (position.getValue() instanceof  Empty) {
+            } else if (position.getValue() instanceof EmptyPiece) {
                 character = " ";
             } else if (position.getValue() instanceof  DisappearingRock) {
                 character = "O";
