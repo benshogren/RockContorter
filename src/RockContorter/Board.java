@@ -87,6 +87,10 @@ public class Board {
         return (GetState(position) instanceof StaticRock);
     }
 
+    public boolean PointIsEmpty(Point position) {
+        return (GetState(position) instanceof Empty);
+    }
+
     public boolean DisappearingRockInTheWay(Point position) {
         return (GetState(position) instanceof DisappearingRock);
     }

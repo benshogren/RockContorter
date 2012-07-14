@@ -56,7 +56,7 @@ public class Game {
     }
 
     public void MoveMonsters(){
-//        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
+        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
         Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
 
 //        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
@@ -165,7 +165,6 @@ public class Game {
         } else if (direction == Direction.DOWNRIGHT) {
             nextPoint = new Point(startingPoint.x + 1, startingPoint.y + 1);
         }
-
         return nextPoint;
     }
 
