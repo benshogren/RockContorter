@@ -17,6 +17,7 @@ public class Game {
 
     public int moveCount = 0;
     public int updateCount = 0;
+    public int staticRockRemovalCount = 0;
 
 
 
@@ -40,6 +41,7 @@ public class Game {
 
     public void Update() {
         updateCount++;
+        staticRockRemovalCount++;
 //        if  (updateCount % 2 == 0) {
             ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
             for (BoardPiece point : Board.BoardGrid.values()) {
@@ -49,15 +51,16 @@ public class Game {
                 point.Update(Board, PlayerPosition);
             }
             RockWave();
+        Board.Update();
 //        }
     }
 
     public void MoveMonsters(){
 //        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
-//        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
-//
+        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
+
 //        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
-        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
+//        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
     }
 
     public void Move (Direction pDirection) {
@@ -86,8 +89,14 @@ public class Game {
 
     public void ThrowARock(){
         Point putRockHere = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
-        if ((Board.GetState(putRockHere) instanceof StaticRock) || (Board.GetState(putRockHere) instanceof DisappearingRock)){
+        if (Board.GetState(putRockHere) instanceof DisappearingRock){
             this.Board.BoardGrid.put(putRockHere, new FlyingRock(putRockHere, playerDirection));
+        } else if (Board.GetState(putRockHere) instanceof StaticRock) {
+            this.Board.BoardGrid.put(putRockHere, new FlyingRock(putRockHere, playerDirection));
+            Point replaceStaticRock = putRockHere;
+            if (staticRockRemovalCount == 15){
+                this.Board.BoardGrid.put(replaceStaticRock, new StaticRock());
+            }
         }
     }
 

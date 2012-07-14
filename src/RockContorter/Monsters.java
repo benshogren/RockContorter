@@ -38,23 +38,24 @@ int updateCount = 0;
             if (here.x < PlayerPosition.x && !board.WallInTheWay(moveRight) && !board.StaticRockInTheWay(moveRight) && !board.DisappearingRockInTheWay(moveRight)){
                 moveToNewPosition(board, moveRight);
                 return;
-            }
-
+            } else {
 //            // back-up random moves for stuck monsters
-            java.util.List<Point> moves = new ArrayList<Point>();
-            moves.add(new Point(here.x - 1, here.y));
-            moves.add(new Point(here.x + 1, here.y));
-            moves.add(new Point(here.x, here.y - 1));
-            moves.add(new Point(here.x, here.y + 1));
+                java.util.List<Point> moves = new ArrayList<Point>();
+                moves.add(new Point(here.x - 1, here.y));
+                moves.add(new Point(here.x + 1, here.y));
+                moves.add(new Point(here.x, here.y - 1));
+                moves.add(new Point(here.x, here.y + 1));
 
-            java.util.List<Point> validMoves = new ArrayList<Point>();
-            for (Point move : moves) {
-                if (!board.WallInTheWay(move) && !board.DisappearingRockInTheWay(move) && !board.StaticRockInTheWay(move)) {
-                    validMoves.add(move);
+                java.util.List<Point> validMoves = new ArrayList<Point>();
+                for (Point move : moves) {
+                    if (!board.WallInTheWay(move) && !board.DisappearingRockInTheWay(move) && !board.StaticRockInTheWay(move)) {
+                        validMoves.add(move);
+                    }
                 }
-            }
-            if (validMoves.size() > 0) {
-                here = validMoves.get((int) (Math.random()*validMoves.size()));
+                if (validMoves.size() > 0) {
+                    moveToNewPosition(board, new Point(validMoves.get((int) (Math.random()*validMoves.size()))));
+                    return;
+                }
             }
         }
     }

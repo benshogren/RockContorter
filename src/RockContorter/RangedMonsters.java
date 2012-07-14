@@ -74,23 +74,6 @@ public class RangedMonsters implements BoardPiece{
 
         }
 
-    ////            // back-up random moves for stuck monsters
-    //        java.util.List<Point> moves = new ArrayList<Point>();
-    //        moves.add(new Point(here.x - 1, here.y));
-    //        moves.add(new Point(here.x + 1, here.y));
-    //        moves.add(new Point(here.x, here.y - 1));
-    //        moves.add(new Point(here.x, here.y + 1));
-    //
-    //        java.util.List<Point> validMoves = new ArrayList<Point>();
-    //        for (Point move : moves) {
-    //            if (!board.WallInTheWay(move) && !board.DisappearingRockInTheWay(move) && !board.StaticRockInTheWay(move)) {
-    //                validMoves.add(move);
-    //            }
-    //        }
-    //        if (validMoves.size() > 0) {
-    //            here = validMoves.get((int) (Math.random()*validMoves.size()));
-    //        }
-
 
 
 
@@ -98,13 +81,13 @@ public class RangedMonsters implements BoardPiece{
             if  (throwCount == 4) {
                 throwCount = 0;
                 if((PlayerPosition.x > here.x) && (PlayerPosition.y == here.y)){
-                    board.BoardGrid.put(new Point(here.x + 1, here.y), new FlyingRock(new Point(here.x + 1, here.y), Game.Direction.RIGHT));
+                    board.BoardGrid.put(new Point(here.x + 2, here.y), new FlyingRock(new Point(here.x + 2, here.y), Game.Direction.RIGHT));
                 } else if((PlayerPosition.x < here.x) && (PlayerPosition.y == here.y)){
-                    board.BoardGrid.put(new Point(here.x - 1, here.y), new FlyingRock(new Point(here.x - 1, here.y), Game.Direction.LEFT));
+                    board.BoardGrid.put(new Point(here.x - 2, here.y), new FlyingRock(new Point(here.x - 2, here.y), Game.Direction.LEFT));
                 } else if((PlayerPosition.x == here.x) && (PlayerPosition.y > here.y)){
-                    board.BoardGrid.put(new Point(here.x, here.y + 1), new FlyingRock(new Point(here.x, here.y + 1), Game.Direction.DOWN));
+                    board.BoardGrid.put(new Point(here.x, here.y + 2), new FlyingRock(new Point(here.x, here.y + 2), Game.Direction.DOWN));
                 } else if((PlayerPosition.x > here.x) && (PlayerPosition.y == here.y)){
-                    board.BoardGrid.put(new Point(here.x, here.y - 1), new FlyingRock(new Point(here.x, here.y - 1), Game.Direction.RIGHT));
+                    board.BoardGrid.put(new Point(here.x, here.y - 2), new FlyingRock(new Point(here.x, here.y - 2), Game.Direction.RIGHT));
                 } else {
                     return;
                 }

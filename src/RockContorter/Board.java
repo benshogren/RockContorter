@@ -2,53 +2,47 @@ package RockContorter;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Board {
     public HashMap<Point, BoardPiece> BoardGrid;
+    public HashMap<Point, Integer> StaticRockList = new HashMap<Point, Integer>();
+
     public int BOARD_SIZE = 40;
 
-
+    public Board(HashMap<Point, BoardPiece> map) {
+        BoardGrid = map;
+        SaveAllStaticRockPositions();
+    }
 
     //This is the constructer for the Board
     public Board() {
         BoardGrid = new HashMap<Point, BoardPiece>();
-
-
-        convertToMap("888888888888888888888888888888888");
-        convertToMap("888888888888888888888888888888888");
-        convertToMap("888888888888888888888888888888888");
-        convertToMap("888                           888");
-        convertToMap("888                     OO    888");
-        convertToMap("888                     OOO   888");
-        convertToMap("888                    OOOO   888");
-        convertToMap("888                    OO     888");
-        convertToMap("888                           888");
-        convertToMap("888                      O    888");
-        convertToMap("888                    OO     888");
-        convertToMap("888                           888");
-        convertToMap("888                           888");
-        convertToMap("888                           888");
-        convertToMap("888                           888");
-        convertToMap("888                           888");
-        convertToMap("888                           888");
-        convertToMap("888888888888888888888888888888888");
-        convertToMap("888888888888888888888888888888888");
-        convertToMap("888888888888888888888888888888888");
-
+        MapConverter mapConverter = new MapConverter();
+        mapConverter.convertToMap("888888888888888888888888888888888", BoardGrid);
+        mapConverter.convertToMap("888888888888888888888888888888888", BoardGrid);
+        mapConverter.convertToMap("888888888888888888888888888888888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                     OO    888", BoardGrid);
+        mapConverter.convertToMap("888                     OOO   888", BoardGrid);
+        mapConverter.convertToMap("888                    OOOO   888", BoardGrid);
+        mapConverter.convertToMap("888                    OO     888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                      O    888", BoardGrid);
+        mapConverter.convertToMap("888                    OO     888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888                           888", BoardGrid);
+        mapConverter.convertToMap("888888888888888888888888888888888", BoardGrid);
+        mapConverter.convertToMap("888888888888888888888888888888888", BoardGrid);
+        mapConverter.convertToMap("888888888888888888888888888888888", BoardGrid);
+        SaveAllStaticRockPositions();
     }
 
-    private int YAxis = 0;
-
-    private void convertToMap(String pMapString) {
-        for (int XAxis = 0; XAxis < pMapString.length(); XAxis++) {
-            Point point = new Point(XAxis, YAxis);
-            BoardPiece piece = ConvertToBoardState(pMapString.charAt(XAxis));
-            BoardGrid.put(point, piece);
-        }
-        YAxis++;
-    }
-
-    private BoardPiece ConvertToBoardState(char pBoardCharacter) {
+    public static BoardPiece ConvertToBoardState(char pBoardCharacter) {
         BoardPiece piece;
         switch (pBoardCharacter) {
             case '8':
@@ -62,6 +56,14 @@ public class Board {
                 break;
         }
         return piece;
+    }
+
+    public void SaveAllStaticRockPositions(){
+        for (Map.Entry<Point, BoardPiece> position : BoardGrid.entrySet()) {
+            if (position.getValue() instanceof StaticRock){
+                StaticRockList.put(position.getKey(), 0);
+            }
+        }
     }
 
     public BoardPiece GetState(Point pNewPosition) {
@@ -89,4 +91,16 @@ public class Board {
         return (GetState(position) instanceof DisappearingRock);
     }
 
+    public void Update() {
+        for (Map.Entry<Point, Integer> position : StaticRockList.entrySet()) {
+            if (! (BoardGrid.get(position.getKey())instanceof StaticRock)) {
+                int halfLifeCounter = position.getValue() + 1;
+                StaticRockList.put(position.getKey(),halfLifeCounter);
+                if (halfLifeCounter == 50){
+                    BoardGrid.put(position.getKey(), new StaticRock());
+                    StaticRockList.put(position.getKey(), 0);
+                }
+            }
+        }
+    }
 }
