@@ -15,6 +15,9 @@ public class RangedMonsters extends Enemies{
     int updateCount = 0;
     int throwCount = 0;
 
+    public Point getPoint() {
+        return here;
+    }
     public RangedMonsters(Point here, Type type) {
         this.here = here;
         this.AxisType = type;
@@ -26,17 +29,17 @@ public class RangedMonsters extends Enemies{
         if  (updateCount == 2) {
             updateCount = 0;
             if( AxisType == Type.YAxis) {
-                if (here.y > PlayerPosition.y) {
+                if (here.y >= PlayerPosition.y + 5 || (here.y >= PlayerPosition.y && here.x != PlayerPosition.x)) {
                     if (moveToSpecificPoint(board, new Point(PlayerPosition.x, PlayerPosition.y + 5))){ return; }
                 }
-                if (here.y <= PlayerPosition.y) {
+                if (here.y < PlayerPosition.y - 5 || (here.y < PlayerPosition.y && here.x != PlayerPosition.x)) {
                     if (moveToSpecificPoint(board, new Point(PlayerPosition.x, PlayerPosition.y - 5))){ return; }
                 }
             } else if (AxisType == Type.XAxis) {
-                if (here.x > PlayerPosition.x) {
+                if (here.x >= PlayerPosition.x + 8 || (here.x >= PlayerPosition.x && here.y != PlayerPosition.y)) {
                     if (moveToSpecificPoint(board, new Point(PlayerPosition.x+8, PlayerPosition.y))){ return; }
                 }
-                if (here.x <= PlayerPosition.x) {
+                if (here.x < PlayerPosition.x - 8 || (here.x < PlayerPosition.x && here.y != PlayerPosition.y)) {
                     if (moveToSpecificPoint(board, new Point(PlayerPosition.x-8, PlayerPosition.y))){ return; }
                 }
             }
@@ -54,8 +57,8 @@ public class RangedMonsters extends Enemies{
                 board.BoardGrid.put(new Point(here.x - 2, here.y), new FlyingRock(new Point(here.x - 2, here.y), Game.Direction.LEFT));
             } else if((PlayerPosition.x == here.x) && (PlayerPosition.y > here.y)){
                 board.BoardGrid.put(new Point(here.x, here.y + 2), new FlyingRock(new Point(here.x, here.y + 2), Game.Direction.DOWN));
-            } else if((PlayerPosition.x > here.x) && (PlayerPosition.y == here.y)){
-                board.BoardGrid.put(new Point(here.x, here.y - 2), new FlyingRock(new Point(here.x, here.y - 2), Game.Direction.RIGHT));
+            } else if((PlayerPosition.x == here.x) && (PlayerPosition.y < here.y)){
+                board.BoardGrid.put(new Point(here.x, here.y - 2), new FlyingRock(new Point(here.x, here.y - 2), Game.Direction.UP));
             } else {
                 return;
             }
