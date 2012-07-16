@@ -2,7 +2,6 @@ package RockContorter;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Game {
     public Board Board;
@@ -57,11 +56,11 @@ public class Game {
 //        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
 //        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
 
-        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
-        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
+//        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
+//        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
 //        Board.BoardGrid.put(new Point(9,4), new Monsters(new Point(9,4)));
-        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
-        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
+//        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
+//        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
 //        Board.BoardGrid.put(new Point(7, 7), new Monsters(new Point(7, 7)));
     }
 
@@ -84,7 +83,7 @@ public class Game {
         Point RockShield = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
         if (Board.GetState(RockShield) instanceof StaticRock || Board.GetState(RockShield) instanceof Wall){
         } else {
-        Board.RockAsBoardState(RockShield);
+        Board.PlaceRock(RockShield);
         }
         return RockShield;
     }
@@ -95,34 +94,30 @@ public class Game {
             this.Board.BoardGrid.put(putRockHere, new FlyingRock(putRockHere, playerDirection));
         } else if (Board.GetState(putRockHere) instanceof StaticRock) {
             this.Board.BoardGrid.put(putRockHere, new FlyingRock(putRockHere, playerDirection));
-            Point replaceStaticRock = putRockHere;
-            if (staticRockRemovalCount == 15){
-                this.Board.BoardGrid.put(replaceStaticRock, new StaticRock());
-            }
         }
     }
 
     public void RockShell(){
-        Board.RockAsBoardState(new Point(PlayerPosition.x, PlayerPosition.y - 1));
-        Board.RockAsBoardState(new Point(PlayerPosition.x - 1, PlayerPosition.y));
-        Board.RockAsBoardState(new Point(PlayerPosition.x + 1, PlayerPosition.y));
-        Board.RockAsBoardState(new Point(PlayerPosition.x, PlayerPosition.y + 1));
-        Board.RockAsBoardState(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1));
-        Board.RockAsBoardState(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1));
-        Board.RockAsBoardState(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1));
-        Board.RockAsBoardState(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1));
+        Board.PlaceRock(new Point(PlayerPosition.x, PlayerPosition.y - 1));
+        Board.PlaceRock(new Point(PlayerPosition.x - 1, PlayerPosition.y));
+        Board.PlaceRock(new Point(PlayerPosition.x + 1, PlayerPosition.y));
+        Board.PlaceRock(new Point(PlayerPosition.x, PlayerPosition.y + 1));
+        Board.PlaceRock(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1));
+        Board.PlaceRock(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1));
+        Board.PlaceRock(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1));
+        Board.PlaceRock(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1));
     }
 
     public void RockWave(){
         if (MadeWave && ShellInPlace){
-            Board.BoardGrid.put(new Point(PlayerPosition.x, PlayerPosition.y - 1), new FlyingRock(new Point(PlayerPosition.x, PlayerPosition.y - 1), Direction.UP));
-            Board.BoardGrid.put(new Point(PlayerPosition.x - 1, PlayerPosition.y), new FlyingRock(new Point(PlayerPosition.x - 1, PlayerPosition.y), Direction.LEFT));
-            Board.BoardGrid.put(new Point(PlayerPosition.x + 1, PlayerPosition.y), new FlyingRock(new Point(PlayerPosition.x + 1, PlayerPosition.y), Direction.RIGHT));
-            Board.BoardGrid.put(new Point(PlayerPosition.x, PlayerPosition.y + 1), new FlyingRock(new Point(PlayerPosition.x, PlayerPosition.y + 1), Direction.DOWN));
-            Board.BoardGrid.put(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1), new FlyingRock(new Point(PlayerPosition.x - 1, PlayerPosition.y - 1), Direction.UPLEFT));
-            Board.BoardGrid.put(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1), new FlyingRock(new Point(PlayerPosition.x + 1, PlayerPosition.y - 1), Direction.UPRIGHT));
-            Board.BoardGrid.put(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1), new FlyingRock(new Point(PlayerPosition.x - 1, PlayerPosition.y + 1), Direction.DOWNLEFT));
-            Board.BoardGrid.put(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1), new FlyingRock(new Point(PlayerPosition.x + 1, PlayerPosition.y + 1), Direction.DOWNRIGHT));
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x, PlayerPosition.y - 1)), Direction.UP);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x - 1, PlayerPosition.y)), Direction.LEFT);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x + 1 , PlayerPosition.y)), Direction.RIGHT);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x, PlayerPosition.y + 1)), Direction.DOWN);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x - 1, PlayerPosition.y - 1)), Direction.UPLEFT);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x + 1, PlayerPosition.y - 1)), Direction.UPRIGHT);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x - 1, PlayerPosition.y + 1)), Direction.DOWNLEFT);
+            Board.PlaceThrowingRock((new Point(PlayerPosition.x + 1, PlayerPosition.y + 1)), Direction.DOWNRIGHT);
             ShellInPlace = false;
          }
            MadeWave = false;
@@ -131,9 +126,9 @@ public class Game {
     public void ChopWall(){
         Point chopWallSection1 = PositionChopWall(PlayerPosition, playerDirection);
         Point chopWallSection2 = GetPointFromStartAndDirection(chopWallSection1, playerDirection);
-        Board.RockAsBoardState(chopWallSection1);
-        Board.RockAsBoardState(chopWallSection2);
-        Board.RockAsBoardState(GetPointFromStartAndDirection(chopWallSection2, playerDirection));
+        Board.PlaceRock(chopWallSection1);
+        Board.PlaceRock(chopWallSection2);
+        Board.PlaceRock(GetPointFromStartAndDirection(chopWallSection2, playerDirection));
     }
 
     public Point PositionChopWall(Point wallStartPoint, Direction wallDirection){

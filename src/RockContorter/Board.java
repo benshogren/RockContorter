@@ -70,8 +70,20 @@ public class Board {
         return BoardGrid.get(pNewPosition);
     }
 
-    public void RockAsBoardState(Point position) {
+    public void PlaceRock(Point position) {
+        if (GetState(position) instanceof Wall || GetState(position) instanceof StaticRock){
+            return;
+        } else {
         BoardGrid.put(position, new DisappearingRock(position));
+        }
+    }
+
+    public void PlaceThrowingRock(Point position, Game.Direction direction) {
+        if (GetState(position) instanceof Wall){
+            return;
+        } else {
+            BoardGrid.put(position, new FlyingRock(position, direction));
+        }
     }
 
     public void BackToEmpty(Point position) {
