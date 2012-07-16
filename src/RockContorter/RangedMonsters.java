@@ -10,14 +10,13 @@ public class RangedMonsters extends Enemies{
         XAxis
     }
 
-    Type AxisType;
-
     int updateCount = 0;
     int throwCount = 0;
 
     public Point getPoint() {
         return here;
     }
+    Type AxisType;
     public RangedMonsters(Point here, Type type) {
         this.here = here;
         this.AxisType = type;
@@ -42,26 +41,14 @@ public class RangedMonsters extends Enemies{
                 if (here.x < PlayerPosition.x - 8 || (here.x < PlayerPosition.x && here.y != PlayerPosition.y)) {
                     if (moveToSpecificPoint(board, new Point(PlayerPosition.x-8, PlayerPosition.y))){ return; }
                 }
+            } else {
+                randomMove(board);
             }
         }
-        throwAtPlayer(board, PlayerPosition);
-    }
-
-    private void throwAtPlayer(Board board, Point PlayerPosition) {
         throwCount  = throwCount + 1;
-        if  (throwCount == 4) {
+        if  (throwCount == 8) {
             throwCount = 0;
-            if((PlayerPosition.x > here.x) && (PlayerPosition.y == here.y)){
-                board.BoardGrid.put(new Point(here.x + 2, here.y), new FlyingRock(new Point(here.x + 2, here.y), Game.Direction.RIGHT));
-            } else if((PlayerPosition.x < here.x) && (PlayerPosition.y == here.y)){
-                board.BoardGrid.put(new Point(here.x - 2, here.y), new FlyingRock(new Point(here.x - 2, here.y), Game.Direction.LEFT));
-            } else if((PlayerPosition.x == here.x) && (PlayerPosition.y > here.y)){
-                board.BoardGrid.put(new Point(here.x, here.y + 2), new FlyingRock(new Point(here.x, here.y + 2), Game.Direction.DOWN));
-            } else if((PlayerPosition.x == here.x) && (PlayerPosition.y < here.y)){
-                board.BoardGrid.put(new Point(here.x, here.y - 2), new FlyingRock(new Point(here.x, here.y - 2), Game.Direction.UP));
-            } else {
-                return;
-            }
+        throwAtPlayer(board, PlayerPosition);
         }
     }
 }

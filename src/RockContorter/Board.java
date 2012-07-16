@@ -78,7 +78,6 @@ public class Board {
         BoardGrid.put(position, new EmptyPiece());
     }
 
-
     public boolean WallInTheWay(Point position) {
         return (GetState(position) instanceof Wall);
     }

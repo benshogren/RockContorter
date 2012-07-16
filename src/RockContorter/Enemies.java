@@ -57,4 +57,20 @@ public abstract class Enemies implements BoardPiece{
         }
         return false;
     }
+
+    protected void throwAtPlayer(Board board, Point PlayerPosition) {
+// add throwcounter for each using class.
+
+        if((PlayerPosition.x > here.x) && (PlayerPosition.y == here.y)){
+            board.BoardGrid.put(new Point(here.x + 2, here.y), new FlyingRock(new Point(here.x + 2, here.y), Game.Direction.RIGHT));
+        } else if((PlayerPosition.x < here.x) && (PlayerPosition.y == here.y)){
+            board.BoardGrid.put(new Point(here.x - 2, here.y), new FlyingRock(new Point(here.x - 2, here.y), Game.Direction.LEFT));
+        } else if((PlayerPosition.x == here.x) && (PlayerPosition.y > here.y)){
+            board.BoardGrid.put(new Point(here.x, here.y + 2), new FlyingRock(new Point(here.x, here.y + 2), Game.Direction.DOWN));
+        } else if((PlayerPosition.x == here.x) && (PlayerPosition.y < here.y)){
+            board.BoardGrid.put(new Point(here.x, here.y - 2), new FlyingRock(new Point(here.x, here.y - 2), Game.Direction.UP));
+        } else {
+            return;
+        }
+    }
 }
