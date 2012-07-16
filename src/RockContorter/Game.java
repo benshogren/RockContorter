@@ -60,8 +60,8 @@ public class Game {
         Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
         Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
 //        Board.BoardGrid.put(new Point(9,4), new Monsters(new Point(9,4)));
-//        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
-//        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
+        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
+        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
 //        Board.BoardGrid.put(new Point(7, 7), new Monsters(new Point(7, 7)));
     }
 
@@ -129,11 +129,24 @@ public class Game {
     }
 
     public void ChopWall(){
-        Point chopWallSection1 = GetPointFromStartAndDirection(PlayerPosition, playerDirection);
+        Point chopWallSection1 = PositionChopWall(PlayerPosition, playerDirection);
         Point chopWallSection2 = GetPointFromStartAndDirection(chopWallSection1, playerDirection);
         Board.RockAsBoardState(chopWallSection1);
         Board.RockAsBoardState(chopWallSection2);
         Board.RockAsBoardState(GetPointFromStartAndDirection(chopWallSection2, playerDirection));
+    }
+
+    public Point PositionChopWall(Point wallStartPoint, Direction wallDirection){
+        if (wallDirection.equals(Direction.UP)){
+            wallStartPoint = new Point(PlayerPosition.x + 1, PlayerPosition.y);
+        } else if (wallDirection.equals(Direction.LEFT)){
+            wallStartPoint = new Point(PlayerPosition.x, PlayerPosition.y - 1);
+        } else  if (wallDirection.equals(Direction.RIGHT)){
+            wallStartPoint = new Point(PlayerPosition.x, PlayerPosition.y + 1);
+        } else  if (wallDirection.equals(Direction.DOWN)){
+            wallStartPoint = new Point(PlayerPosition.x - 1, PlayerPosition.y);
+        }
+        return wallStartPoint;
     }
 
     public Point Leap(){
@@ -146,7 +159,6 @@ public class Game {
         }
         return PlayerPosition;
     }
-
 
     public static Point GetPointFromStartAndDirection(Point startingPoint, Direction direction, int NumberOfSpacesToMove) {
         Point nextPoint = startingPoint;
