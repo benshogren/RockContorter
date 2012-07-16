@@ -39,7 +39,6 @@ public class Game {
     public void Update() {
         updateCount++;
         staticRockRemovalCount++;
-//        if  (updateCount % 2 == 0) {
             ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
             for (BoardPiece point : Board.BoardGrid.values()) {
                 test.add(point);
@@ -49,7 +48,6 @@ public class Game {
             }
             RockWave();
         Board.Update();
-//        }
     }
 
     public void MoveMonsters(){
@@ -62,6 +60,10 @@ public class Game {
 //        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
 //        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
 //        Board.BoardGrid.put(new Point(7, 7), new Monsters(new Point(7, 7)));
+
+
+        Board.BoardGrid.put(new Point(7,7), new RemoteMonsters(new Point(7,7)));
+
     }
 
     public void Move (Direction pDirection) {
