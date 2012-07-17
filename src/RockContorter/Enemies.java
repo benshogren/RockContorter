@@ -35,6 +35,7 @@ public abstract class Enemies implements BoardPiece{
     }
 
     protected boolean MoveMonster(Board board, Point point) {
+
         Point moveUp = new Point(here.x, here.y - 1);
         if (here.y > point.y && board.PointIsEmpty(moveUp)){
             moveToNewPosition(board, moveUp);

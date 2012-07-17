@@ -55,14 +55,17 @@ public class Game {
     public void MoveMonsters(){
 //        Board.BoardGrid.put(new Point(5,4), new RangedMonsters(new Point(5,4), RangedMonsters.Type.YAxis));
 //        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
-//
+        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.Stationary));
+
+
 //        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
 //        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
 //        Board.BoardGrid.put(new Point(9,4), new Monsters(new Point(9,4)));
 //        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
 //        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
 //
-        Board.BoardGrid.put(new Point(7,7), new RemoteMonsters((new Point(7,7)), new Point(7,7), new Point(6,6)));
+//        Board.BoardGrid.put(new Point(7,7), new RemoteMonsters((new Point(7,7)), new Point(6,6)));
+//        Board.BoardGrid.put(new Point(16,7), new RemoteMonsters((new Point(16,7)), new Point(15,6)));
 
     }
 

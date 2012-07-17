@@ -12,10 +12,10 @@ public class RemoteMonsters extends Enemies {
     int directionCounter = 0;
     public boolean RemoteInSync = true;
 
-    public RemoteMonsters(Point MonsterCurrentPoint, Point MonsterStartPoint, Point ProtectedPoint){
+    public RemoteMonsters(Point MonsterCurrentPoint, Point ProtectedPoint){
         this.here = MonsterCurrentPoint;
         this.ProtectedPoint = ProtectedPoint;
-        this.MonsterStartPoint = MonsterStartPoint;
+        MonsterStartPoint = this.here;
     }
 
     public void Update(Board board, Point PlayerPosition) {
@@ -56,9 +56,6 @@ public class RemoteMonsters extends Enemies {
                 if (MoveMonster(board, PlayerPosition)) return;
             }
         }
-
-
-
     }
 
 
