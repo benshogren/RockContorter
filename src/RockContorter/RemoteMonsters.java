@@ -4,8 +4,11 @@ import java.awt.*;
 
 public class RemoteMonsters extends Enemies {
 
+    Game.Direction patrolDirection;
+
     Point ProtectedPoint;
     int walkCounter = 0;
+    int directionCounter = 0;
 
     public RemoteMonsters(Point MonsterPoint){
         this.here = MonsterPoint;
@@ -14,71 +17,43 @@ public class RemoteMonsters extends Enemies {
 
 
     public void Update(Board board, Point PlayerPosition) {
-        Point nextRemotePoint;
         walkCounter = walkCounter + 1;
-
+        directionCounter = directionCounter + 1;
+        if (directionCounter >= 63){
+            directionCounter = 0;
+        } else if (directionCounter >= 48){
+            patrolDirection = Game.Direction.DOWN;
+        } else if (directionCounter >= 32){
+            patrolDirection = Game.Direction.RIGHT;
+        } else if(directionCounter >= 16){
+            patrolDirection = Game.Direction.UP;
+        } else if (directionCounter >= 0){
+            patrolDirection = Game.Direction.LEFT;
+        }
         if (walkCounter == 4){
             board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x - 1, here.y);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 8){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x - 1, here.y);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 12){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x, here.y - 1);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 16){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x, here.y - 1);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 20){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x + 1, here.y);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 24){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x + 1, here.y);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 28){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x, here.y + 1);
-            board.BoardGrid.put(here, this);
-            return;
-        } else if (walkCounter == 32){
-            board.BoardGrid.put(here, new EmptyPiece());
-            here = new Point(here.x, here.y + 1);
+            MoveRemotes();
             board.BoardGrid.put(here, this);
             walkCounter = 0;
             return;
         }
-
-
-        return;
-
-
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void MoveRemotes(){
+        if (patrolDirection == Game.Direction.LEFT){
+            here = new Point(here.x - 1, here.y);
+            return;
+        } else if (patrolDirection == Game.Direction.UP){
+            here = new Point(here.x, here.y - 1);
+            return;
+        } else if (patrolDirection == Game.Direction.RIGHT){
+            here = new Point(here.x + 1, here.y);
+            return;
+        } else if (patrolDirection == Game.Direction.DOWN){
+            here = new Point(here.x, here.y + 1);
+            return;
+        }
+    }
 
 }
+
