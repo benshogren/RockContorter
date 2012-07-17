@@ -34,7 +34,7 @@ public abstract class Enemies implements BoardPiece{
         board.BoardGrid.put(here, this);
     }
 
-    protected boolean moveToSpecificPoint(Board board, Point PlayerPosition) {
+    protected boolean MoveMonster(Board board, Point PlayerPosition) {
         Point moveUp = new Point(here.x, here.y - 1);
         if (here.y > PlayerPosition.y && board.PointIsEmpty(moveUp)){
             moveToNewPosition(board, moveUp);

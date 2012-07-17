@@ -1,8 +1,6 @@
 package RockContorter;
 
 import java.awt.*;
-import java.awt.List;
-import java.util.*;
 
 public class RangedMonsters extends Enemies{
     public enum Type{
@@ -29,17 +27,17 @@ public class RangedMonsters extends Enemies{
             updateCount = 0;
             if( AxisType == Type.YAxis) {
                 if (here.y >= PlayerPosition.y + 5 || (here.y >= PlayerPosition.y && here.x != PlayerPosition.x)) {
-                    if (moveToSpecificPoint(board, new Point(PlayerPosition.x, PlayerPosition.y + 5))){ return; }
+                    if (MoveMonster(board, new Point(PlayerPosition.x, PlayerPosition.y + 5))){ return; }
                 }
                 if (here.y < PlayerPosition.y - 5 || (here.y < PlayerPosition.y && here.x != PlayerPosition.x)) {
-                    if (moveToSpecificPoint(board, new Point(PlayerPosition.x, PlayerPosition.y - 5))){ return; }
+                    if (MoveMonster(board, new Point(PlayerPosition.x, PlayerPosition.y - 5))){ return; }
                 }
             } else if (AxisType == Type.XAxis) {
                 if (here.x >= PlayerPosition.x + 8 || (here.x >= PlayerPosition.x && here.y != PlayerPosition.y)) {
-                    if (moveToSpecificPoint(board, new Point(PlayerPosition.x+8, PlayerPosition.y))){ return; }
+                    if (MoveMonster(board, new Point(PlayerPosition.x + 8, PlayerPosition.y))){ return; }
                 }
                 if (here.x < PlayerPosition.x - 8 || (here.x < PlayerPosition.x && here.y != PlayerPosition.y)) {
-                    if (moveToSpecificPoint(board, new Point(PlayerPosition.x-8, PlayerPosition.y))){ return; }
+                    if (MoveMonster(board, new Point(PlayerPosition.x - 8, PlayerPosition.y))){ return; }
                 }
             } else {
                 randomMove(board);

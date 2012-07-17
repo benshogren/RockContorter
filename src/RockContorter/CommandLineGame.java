@@ -79,6 +79,7 @@ public class CommandLineGame {
                 character = "R";
             } else if (position.getValue() instanceof  RemoteMonsters) {
                 character = "P";
+
             } else {
                 character = " ";
             }

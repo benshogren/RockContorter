@@ -10,34 +10,70 @@ public class RemoteMonsters extends Enemies {
     int walkCounter = 0;
     int directionCounter = 0;
 
-    public RemoteMonsters(Point MonsterPoint){
+    public RemoteMonsters(Point MonsterPoint, Point ProtectedPoint){
         this.here = MonsterPoint;
-//        this.ProtectedPoint = ProtectedPoint;
+        this.ProtectedPoint = ProtectedPoint;
     }
 
 
     public void Update(Board board, Point PlayerPosition) {
         walkCounter = walkCounter + 1;
         directionCounter = directionCounter + 1;
-        if (directionCounter >= 63){
-            directionCounter = 0;
-        } else if (directionCounter >= 48){
-            patrolDirection = Game.Direction.DOWN;
-        } else if (directionCounter >= 32){
-            patrolDirection = Game.Direction.RIGHT;
-        } else if(directionCounter >= 16){
-            patrolDirection = Game.Direction.UP;
-        } else if (directionCounter >= 0){
-            patrolDirection = Game.Direction.LEFT;
-        }
-        if (walkCounter == 4){
-            board.BoardGrid.put(here, new EmptyPiece());
-            MoveRemotes();
-            board.BoardGrid.put(here, this);
+        board.BoardGrid.put(ProtectedPoint, new StaticRock());
+        if (((PlayerPosition.x > ProtectedPoint.x + 3) || (PlayerPosition.x < ProtectedPoint.x - 3)) || ((PlayerPosition.y > ProtectedPoint.y + 3) || (PlayerPosition.y < ProtectedPoint.y - 3))){
+            if (directionCounter >= 47){
+                directionCounter = 0;
+            } else if (directionCounter >= 36){
+                patrolDirection = Game.Direction.DOWN;
+            } else if (directionCounter >= 24){
+                patrolDirection = Game.Direction.RIGHT;
+            } else if(directionCounter >= 12){
+                patrolDirection = Game.Direction.UP;
+            } else if (directionCounter >= 0){
+                patrolDirection = Game.Direction.LEFT;
+            }
+            if (walkCounter == 4){
+                board.BoardGrid.put(here, new EmptyPiece());
+                MoveRemotes();
+                board.BoardGrid.put(here, this);
+                walkCounter = 0;
+                return;
+            }
+        } else if (walkCounter == 4){
             walkCounter = 0;
-            return;
+            if (MoveMonster(board, PlayerPosition)) return;
         }
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void MoveRemotes(){
         if (patrolDirection == Game.Direction.LEFT){

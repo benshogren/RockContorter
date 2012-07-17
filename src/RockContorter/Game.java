@@ -1,5 +1,6 @@
 package RockContorter;
 
+import javax.sound.midi.MidiChannel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public class Game {
 
     public Point PlayerPosition;
     public Direction playerDirection;
+    public Point ProtectedPoint;
 
     public int moveCount = 0;
     public int updateCount = 0;
@@ -62,7 +64,7 @@ public class Game {
 //        Board.BoardGrid.put(new Point(7, 7), new Monsters(new Point(7, 7)));
 
 
-        Board.BoardGrid.put(new Point(7,7), new RemoteMonsters(new Point(7,7)));
+        Board.BoardGrid.put(new Point(7,7), new RemoteMonsters((new Point(7,7)), new Point(6,6)));
 
     }
 
