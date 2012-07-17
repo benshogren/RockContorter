@@ -34,24 +34,24 @@ public abstract class Enemies implements BoardPiece{
         board.BoardGrid.put(here, this);
     }
 
-    protected boolean MoveMonster(Board board, Point PlayerPosition) {
+    protected boolean MoveMonster(Board board, Point point) {
         Point moveUp = new Point(here.x, here.y - 1);
-        if (here.y > PlayerPosition.y && board.PointIsEmpty(moveUp)){
+        if (here.y > point.y && board.PointIsEmpty(moveUp)){
             moveToNewPosition(board, moveUp);
             return true;
         }
         Point moveDown = new Point(here.x, here.y + 1);
-        if (here.y < PlayerPosition.y && board.PointIsEmpty(moveDown)){
+        if (here.y < point.y && board.PointIsEmpty(moveDown)){
             moveToNewPosition(board, moveDown);
             return true;
         }
         Point moveLeft = new Point(here.x - 1, here.y);
-        if (here.x > PlayerPosition.x && board.PointIsEmpty(moveLeft)){
+        if (here.x > point.x && board.PointIsEmpty(moveLeft)){
             moveToNewPosition(board, moveLeft);
             return true;
         }
         Point moveRight = new Point(here.x + 1, here.y);
-        if (here.x < PlayerPosition.x && board.PointIsEmpty(moveRight)){
+        if (here.x < point.x && board.PointIsEmpty(moveRight)){
             moveToNewPosition(board, moveRight);
             return true;
         }
