@@ -6,7 +6,7 @@ public class RangedMonsters extends Enemies{
     public enum Type{
         YAxis,
         XAxis,
-        Stationary
+        Stationary //this is not unused
     }
 
     int updateCount = 0;

@@ -14,11 +14,11 @@ public class Game {
 
     public Point PlayerPosition;
     public Direction playerDirection;
-    public Point ProtectedPoint;
 
     public int moveCount = 0;
     public int updateCount = 0;
     public int staticRockRemovalCount = 0;
+    public int playerHealth = 0;
 
     public Game(Board pBoard) {
         Board = pBoard;
@@ -39,6 +39,7 @@ public class Game {
     }
 
     public void Update() {
+        BoardPiece playerposition = Board.GetState(PlayerPosition);
         updateCount++;
         staticRockRemovalCount++;
             ArrayList<BoardPiece> test = new ArrayList<BoardPiece>();
@@ -50,6 +51,15 @@ public class Game {
             }
             RockWave();
         Board.Update();
+
+        if (playerposition instanceof FlyingRock || playerposition instanceof Monsters || playerposition instanceof RangedMonsters){
+            playerHealth = playerHealth + 1;
+            System.out.println("playerHealth is " + playerHealth);
+        }
+        if (playerHealth == 4){
+            System.out.println("Dead");
+        }
+
     }
 
     public void MoveMonsters(){
@@ -57,12 +67,8 @@ public class Game {
 //        Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.XAxis));
         Board.BoardGrid.put(new Point(7,7), new RangedMonsters(new Point(7,7), RangedMonsters.Type.Stationary));
 
-
-//        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
-//        Board.BoardGrid.put(new Point(10, 6), new Monsters(new Point(10, 6)));
+        Board.BoardGrid.put(new Point(17,6), new Monsters(new Point(17,6)));
 //        Board.BoardGrid.put(new Point(9,4), new Monsters(new Point(9,4)));
-//        Board.BoardGrid.put(new Point(4, 4), new Monsters(new Point(4, 4)));
-//        Board.BoardGrid.put(new Point(8,6), new Monsters(new Point(8,6)));
 //
 //        Board.BoardGrid.put(new Point(7,7), new RemoteMonsters((new Point(7,7)), new Point(6,6)));
 //        Board.BoardGrid.put(new Point(16,7), new RemoteMonsters((new Point(16,7)), new Point(15,6)));
